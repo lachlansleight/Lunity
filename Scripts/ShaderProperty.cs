@@ -34,6 +34,22 @@ public class ShaderProperty
     public Vector2 TextureScaleValue;
     public Vector2 TextureOffsetValue;
 
+    public ShaderProperty()
+    {
+        Type = PropertyType.Float;
+        Name = "_PropertyNameHere";
+        KernelIndex = 0;
+        IntValue = 0;
+        FloatValue = 0;
+        VectorValue = Vector4.zero;
+        BoolValue = false;
+        MatrixValue = Matrix4x4.identity;
+        TextureValue = null;
+        ColorValue = Color.white;
+        TextureScaleValue = Vector2.one;
+        TextureOffsetValue = Vector2.zero;
+    }
+
 }
 
 public static class ShaderPropertyExtensions
