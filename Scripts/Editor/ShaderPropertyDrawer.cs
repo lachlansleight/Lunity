@@ -29,6 +29,9 @@ public class ShaderPropertyDrawer : PropertyDrawer
         var lineOneB =  new Rect(innerRect.x + innerRect.width * 0.55f, innerRect.y,       innerRect.width * 0.45f, 16f);
         var lineTwo =   new Rect(innerRect.x,                           innerRect.y + 16f, innerRect.width,         16f);
         var lineThree = new Rect(innerRect.x,                           innerRect.y + 32f, innerRect.width,         16f);
+        if (displayType == 4) {
+            lineThree.height = 17f * 16f;
+        }
         
         if (displayType == 5) {
             EditorGUI.PropertyField(lineOneA, property.FindPropertyRelative("Type"), new GUIContent("Type"));
@@ -54,6 +57,7 @@ public class ShaderPropertyDrawer : PropertyDrawer
                 break;
             case 4:
                 EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("MatrixValue"), new GUIContent("Value"));
+                
                 break;
             case 5:
                 EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("TextureValue"), new GUIContent("Value"));
@@ -65,7 +69,12 @@ public class ShaderPropertyDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return (3f * 16f) + (2f * Padding);
+        var displayType = property.FindPropertyRelative("Type").enumValueIndex;
+        if (displayType == 4) {
+            return (5f * 16f) + (2f * Padding) + base.GetPropertyHeight(property, label);
+        } else {
+            return (2f * 16f) + (2f * Padding) + base.GetPropertyHeight(property, label);    
+        }
     }
 //    
 //    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
