@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Security.Cryptography;
+using UnityEngine;
 
 namespace Lunity
 {
@@ -37,6 +38,11 @@ namespace Lunity
             var u = v;
             u.y += increment;
             v = u;
+        }
+
+        public static float[] ToArray(this Vector2 v)
+        {
+            return new [] {v.x, v.y};
         }
         
         //==============================================================================================================
@@ -85,6 +91,11 @@ namespace Lunity
             var u = v;
             u.z += increment;
             v = u;
+        }
+        
+        public static float[] ToArray(this Vector3 v)
+        {
+            return new [] {v.x, v.y, v.z};
         }
         
         //==============================================================================================================
@@ -149,15 +160,25 @@ namespace Lunity
             v = u;
         }
         
+        public static float[] ToArray(this Vector4 v)
+        {
+            return new [] {v.x, v.y, v.z, v.w};
+        }
+        
         //==============================================================================================================
         //==============================================================================================================
         //==                                       QUATERNION EXTENSIONS                                              ==
         //==============================================================================================================
         //==============================================================================================================
 
-        public static Vector4 AsVector4(this Quaternion q)
+        public static Vector4 ToVector4(this Quaternion q)
         {
             return new Vector4(q.x, q.y, q.z, q.w);
+        }
+
+        public static float[] ToArray(this Quaternion q)
+        {
+            return new[] {q.x, q.y, q.z, q.w};
         }
     }
 }
