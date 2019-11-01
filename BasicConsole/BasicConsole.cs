@@ -51,7 +51,7 @@ public class BasicConsole : MonoBehaviour
         _stringBuilder = new StringBuilder(_rowCount * _columnCount);
         
         //recalculate in case something has already logged before we were ready
-        foreach (var entry in _logEntries) entry.RecalculateLineCount(_columnCount);
+        if(_logEntries != null) foreach (var entry in _logEntries) entry.RecalculateLineCount(_columnCount);
         RepaintText();
     }
 
