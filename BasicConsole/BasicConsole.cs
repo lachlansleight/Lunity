@@ -17,12 +17,18 @@ public class BasicConsole : MonoBehaviour
         {
             Log = log;
             Color = color;
-            LineCount = Mathf.CeilToInt(log.Length / (float)columnCount);
+            var lines = log.Split('\n');
+            foreach (var line in lines) {
+                LineCount += Mathf.CeilToInt(line.Length / (float) columnCount);
+            }
         }
 
         public void RecalculateLineCount(int columnCount)
         {
-            LineCount = Mathf.CeilToInt(Log.Length / (float)columnCount);
+            var lines = Log.Split('\n');
+            foreach (var line in lines) {
+                LineCount += Mathf.CeilToInt(line.Length / (float) columnCount);
+            }
         }
     }
 
@@ -51,8 +57,10 @@ public class BasicConsole : MonoBehaviour
         _stringBuilder = new StringBuilder(_rowCount * _columnCount);
         
         //recalculate in case something has already logged before we were ready
-        if(_logEntries != null) foreach (var entry in _logEntries) entry.RecalculateLineCount(_columnCount);
-        RepaintText();
+        if (_logEntries != null) {
+            foreach (var entry in _logEntries) entry.RecalculateLineCount(_columnCount);
+            RepaintText();
+        }
     }
 
     public static void Log(string log, string color = "#FFFFFFFF")
