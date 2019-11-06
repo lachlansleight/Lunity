@@ -65,6 +65,7 @@ public class BasicConsole : MonoBehaviour
 
     public static void Log(string log, string color = "#FFFFFFFF")
     {
+        if (_instance == null) return;
         if (_instance._logEntries == null) _instance._logEntries = new List<LogEntry>();
         
         _instance._logEntries.Add(new LogEntry(log, color, _instance._columnCount));
@@ -80,6 +81,7 @@ public class BasicConsole : MonoBehaviour
 
     public static void Log(string log, Color color)
     {
+        if (_instance == null) return;
         var hexColor = "#" + ColorUtility.ToHtmlStringRGB(color);
         Log(log, hexColor);
     }
