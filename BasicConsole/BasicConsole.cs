@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BasicConsole : MonoBehaviour
+public class BasicConsole : Singleton<BasicConsole>
 {
 
     private class LogEntry
@@ -39,17 +39,6 @@ public class BasicConsole : MonoBehaviour
     private int _rowCount;
     private int _columnCount;
     private StringBuilder _stringBuilder;
-    
-    private static BasicConsole __instance;
-
-    private static BasicConsole _instance
-    {
-        get
-        {
-            if (__instance == null) __instance = FindObjectOfType<BasicConsole>();
-            return __instance;
-        }
-    }
 
     private void Start()
     {
@@ -65,15 +54,15 @@ public class BasicConsole : MonoBehaviour
 
     public static void Log(string log, string color = "#FFFFFFFF")
     {
-        if (_instance == null) return;
-        if (_instance._logEntries == null) _instance._logEntries = new List<LogEntry>();
+        if (Instance == null) return;
+        if (Instance._logEntries == null) Instance._logEntries = new List<LogEntry>();
         
-        _instance._logEntries.Add(new LogEntry(log, color, _instance._columnCount));
-        _instance._lines += _instance._logEntries[_instance._logEntries.Count - 1].LineCount;
+        Instance._logEntries.Add(new LogEntry(log, color, Instance._columnCount));
+        Instance._lines += Instance._logEntries[Instance._logEntries.Count - 1].LineCount;
         
-        while(_instance._lines > _instance._rowCount) {
-            _instance._lines -= _instance._logEntries[0].LineCount;
-            _instance._logEntries.RemoveAt(0);
+        while(Instance._lines > Instance._rowCount) {
+            Instance._lines -= Instance._logEntries[0].LineCount;
+            Instance._logEntries.RemoveAt(0);
         }
 
         RepaintText();
@@ -81,25 +70,25 @@ public class BasicConsole : MonoBehaviour
 
     public static void Log(string log, Color color)
     {
-        if (_instance == null) return;
+        if (Instance == null) return;
         var hexColor = "#" + ColorUtility.ToHtmlStringRGB(color);
         Log(log, hexColor);
     }
 
     private static void RepaintText()
     {
-        var sb = _instance._stringBuilder;
+        var sb = Instance._stringBuilder;
         if (sb == null) return;
 
         sb.Clear();
-        foreach (var log in _instance._logEntries) {
+        foreach (var log in Instance._logEntries) {
             if (sb.Length > 0) sb.Append("\n");
             if (!log.Color.Equals("#FFFFFFFF")) sb.Append($"<color=\"{log.Color}\">");
             sb.Append(log.Log);
             if (!log.Color.Equals("#FFFFFFFF")) sb.Append("</color>");
         }
 
-        _instance.OutputText.text = sb.ToString();
+        Instance.OutputText.text = sb.ToString();
     }
 
     private void CalculateMaxWidthAndHeight()
