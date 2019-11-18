@@ -255,11 +255,11 @@ public struct Vector3Double
 
 	public static Vector3Double operator *(Vector3Double a, double b)
 	{
-		return new Vector3Double(a.x * b, a.y * b, a.z / b);
+		return new Vector3Double(a.x * b, a.y * b, a.z * b);
 	}
 	public static Vector3Double operator *(double b, Vector3Double a)
 	{
-		return new Vector3Double(a.x * b, a.y * b, a.z / b);
+		return new Vector3Double(a.x * b, a.y * b, a.z * b);
 	}
 	
 	public static Vector3Double operator /(Vector3Double a, double b)
@@ -269,11 +269,11 @@ public struct Vector3Double
 	
 	public static Vector3Double operator *(Vector3Double a, float b)
 	{
-		return new Vector3Double(a.x * b, a.y * b, a.z / b);
+		return new Vector3Double(a.x * b, a.y * b, a.z * b);
 	}
 	public static Vector3Double operator *(float b, Vector3Double a)
 	{
-		return new Vector3Double(a.x * b, a.y * b, a.z / b);
+		return new Vector3Double(a.x * b, a.y * b, a.z * b);
 	}
 	
 	public static Vector3Double operator /(Vector3Double a, float b)
@@ -283,11 +283,11 @@ public struct Vector3Double
 	
 	public static Vector3Double operator *(Vector3Double a, int b)
 	{
-		return new Vector3Double(a.x * b, a.y * b, a.z / b);
+		return new Vector3Double(a.x * b, a.y * b, a.z * b);
 	}
 	public static Vector3Double operator *(int b, Vector3Double a)
 	{
-		return new Vector3Double(a.x * b, a.y * b, a.z / b);
+		return new Vector3Double(a.x * b, a.y * b, a.z * b);
 	}
 	
 	public static Vector3Double operator /(Vector3Double a, int b)
