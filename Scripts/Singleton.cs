@@ -11,6 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	private static bool _shuttingDown = false;
 	private static object _lock = new object();
 	private static T _instance;
+	private static bool _preAccess;
  
 	/// <summary>
 	/// Access singleton instance through this propriety.
@@ -27,13 +28,19 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
  
 			lock (_lock)
 			{
-				if (_instance != null) return _instance;
+				if (_instance != null) {
+					_preAccess = true;
+					return _instance;
+				}
 				
 				// Search for existing instance.
 				_instance = (T)FindObjectOfType(typeof(T));
  
 				// Create new instance if one doesn't already exist.
-				if (_instance != null) return _instance;
+				if (_instance != null) {
+					_preAccess = true;
+					return _instance;
+				}
 				
 				// Need to create a new GameObject to attach the singleton to.
 				var singletonObject = new GameObject();
@@ -43,6 +50,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 				// Make instance persistent.
 				DontDestroyOnLoad(singletonObject);
 
+				_preAccess = true;
 				return _instance;
 			}
 		}
@@ -50,10 +58,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
 	public virtual void Awake()
 	{
+		
 		if (_instance == null) {
 			_instance = this as T;
 			DontDestroyOnLoad ( gameObject );
-		} else {
+		} else if(!_preAccess) {
 			Debug.LogError("Error - there is already another initialized Singleton instance of type '" + typeof(T) + "' in the scene. Destroying this one");
 			Destroy (gameObject);
 		}
