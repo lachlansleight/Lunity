@@ -26,6 +26,8 @@ public class ShaderPropertyDrawer : PropertyDrawer
         var lineThree = new Rect(innerRect.x,                           innerRect.y + 32f, innerRect.width,         16f);
         if (displayType == 4) {
             lineThree.height = 17f * 16f;
+        } else if (displayType == 2) {
+            lineThree.height = 20f * 16f;
         }
         
         if (displayType == 5) {
@@ -45,7 +47,7 @@ public class ShaderPropertyDrawer : PropertyDrawer
                 EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("IntValue"), new GUIContent("Value"));
                 break;
             case 2:
-                EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("VectorValue"), new GUIContent("Value"));
+                EditorGUI.Vector4Field(lineThree, new GUIContent("Value"), property.FindPropertyRelative("VectorValue").vector4Value);
                 break;
             case 3:
                 EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("BoolValue"), new GUIContent("Value"));
@@ -67,7 +69,9 @@ public class ShaderPropertyDrawer : PropertyDrawer
         var displayType = property.FindPropertyRelative("Type").enumValueIndex;
         if (displayType == 4) {
             return (5f * 16f) + (2f * Padding) + base.GetPropertyHeight(property, label);
-        } else {
+        } else if (displayType == 2) {
+            return (3f * 16f) + (2f * Padding) + base.GetPropertyHeight(property, label);
+        }else {
             return (2f * 16f) + (2f * Padding) + base.GetPropertyHeight(property, label);    
         }
     }
