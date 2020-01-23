@@ -41,7 +41,7 @@ public class BasicConsole : Singleton<BasicConsole>
 
     private void Start()
     {
-        if (Instance == null) return;
+        if (Instance == null || OutputText == null) return;
         
         CalculateMaxWidthAndHeight();
         _stringBuilder = new StringBuilder(_rowCount * _columnCount);
