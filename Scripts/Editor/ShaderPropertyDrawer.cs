@@ -47,7 +47,7 @@ public class ShaderPropertyDrawer : PropertyDrawer
                 EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("IntValue"), new GUIContent("Value"));
                 break;
             case 2:
-                EditorGUI.Vector4Field(lineThree, new GUIContent("Value"), property.FindPropertyRelative("VectorValue").vector4Value);
+                property.FindPropertyRelative("VectorValue").vector4Value = EditorGUI.Vector4Field(lineThree, new GUIContent("Value"), property.FindPropertyRelative("VectorValue").vector4Value);
                 break;
             case 3:
                 EditorGUI.PropertyField(lineThree, property.FindPropertyRelative("BoolValue"), new GUIContent("Value"));
