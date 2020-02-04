@@ -149,6 +149,16 @@ public struct Vector2Double
 		return (float)Math.Abs(a.x - b.x) < Mathf.Epsilon && (float)Math.Abs(a.y - b.y) < Mathf.Epsilon;
 	}
 
+	public static implicit operator Vector2(Vector2Double source)
+	{
+		return new Vector2((float)source.x, (float)source.y);
+	}
+	
+	public static implicit operator Vector2Double(Vector2 source)
+	{
+		return new Vector2Double(source.x, source.y);
+	}
+
 }
 
 [Serializable]
@@ -307,6 +317,26 @@ public struct Vector3Double
 		return (float) Math.Abs(a.x - b.x) < Mathf.Epsilon && 
 		       (float) Math.Abs(a.y - b.y) < Mathf.Epsilon &&
 		       (float) Math.Abs(a.z - b.z) < Mathf.Epsilon;
+	}
+	
+	public static implicit operator Vector3(Vector3Double source)
+	{
+		return new Vector3((float)source.x, (float)source.y, (float)source.z);
+	}
+	
+	public static implicit operator Vector3Double(Vector3 source)
+	{
+		return new Vector3Double(source.x, source.y, source.z);
+	}
+
+	public static implicit operator Vector2Double(Vector3Double source)
+	{
+		return new Vector2Double(source.x, source.y);
+	}
+
+	public static implicit operator Vector3Double(Vector2Double source)
+	{
+		return new Vector3Double(source.x, source.y, 0d);
 	}
 
 }

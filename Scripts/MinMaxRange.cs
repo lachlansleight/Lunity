@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Lunity
 {
@@ -13,6 +15,16 @@ namespace Lunity
         {
             this.min = min;
             this.max = max;
+        }
+
+        public float GetRandom()
+        {
+            return Random.Range(min, max);
+        }
+
+        public float Lerp(float t)
+        {
+            return Mathf.Lerp(min, max, t);
         }
     }
 }
