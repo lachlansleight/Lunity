@@ -108,6 +108,20 @@ namespace Lunity
 		}
 
 		/// <summary>
+		/// Apply a quadratic ease with a factor that blends between in and out
+		/// </summary>
+		/// <param name="t">THe interpolation parameter to apply easing to</param>
+		/// <param name="inout">The blend from 0 (completely in) to 1 (completely out)</param>
+		/// <returns></returns>
+		public static float QuadraticAdaptive(float t, float inout)
+		{
+			if (t < 0 || t > 1) t = Mathf.Clamp01(t);
+			inout = Mathf.Lerp(0.707f, 0.293f, inout);
+			var x = ((0.5f / inout) - 1f) / (inout - 1f);
+			return x * t * t + (1 - x) * t;
+		}
+
+		/// <summary>
 		/// Apply a cubic ease in
 		/// </summary>
 		/// <param name="t">The interpolation parameter to apply easing to</param>
