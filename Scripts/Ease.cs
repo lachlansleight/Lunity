@@ -110,9 +110,9 @@ namespace Lunity
 		/// <summary>
 		/// Apply a quadratic ease with a factor that blends between in and out
 		/// </summary>
-		/// <param name="t">THe interpolation parameter to apply easing to</param>
-		/// <param name="inout">The blend from 0 (completely in) to 1 (completely out)</param>
-		/// <returns></returns>
+		/// <param name="t">The interpolation parameter to apply easing to</param>
+		/// <param name="inout">The blend from 0 (completely in) to 1 (completely out). This represents the point at which the function returns 0.5.
+		/// Note that it's clamped from 0.293 to 0.707 [1 - sqrt(2) / 2] to [sqrt(2) / 2]</param>
 		public static float QuadraticAdaptive(float t, float inout)
 		{
 			if (t < 0 || t > 1) t = Mathf.Clamp01(t);
