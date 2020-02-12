@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,5 +9,6 @@ namespace Lunity
     {
         void Initialize();
         bool Initialized { get; set; }
+        Action OnInitialized { get; set; }
     }
 }
