@@ -8,7 +8,9 @@ namespace Lunity
     public interface IInitializable
     {
         void Initialize();
+        void Deinitialize();
         bool Initialized { get; set; }
         Action OnInitialized { get; set; }
+        Action OnDeinitialized { get; set; }
     }
 }
