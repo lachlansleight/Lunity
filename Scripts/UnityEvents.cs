@@ -46,4 +46,6 @@ namespace Lunity
     [Serializable] public class UnityMeshFilterEvent : UnityEvent<MeshFilter> { }
 
     [Serializable] public class UnityObjectEvent : UnityEvent<Object> { }
+
+    [Serializable] public class UnityColorEvent : UnityEvent<Color> { }
 }
