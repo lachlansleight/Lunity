@@ -71,19 +71,23 @@ namespace Lunity
 
             _mainRt = transform.Find("RawImage_Main").GetComponent<RectTransform>();
             _mainMarkerRt = transform.Find("RawImage_Main/Marker").GetComponent<RectTransform>();
-            _mainMat = _mainRt.GetComponent<RawImage>().material;
+            _mainMat = new Material(_mainRt.GetComponent<RawImage>().material);
+            _mainRt.GetComponent<RawImage>().material = _mainMat; 
 
             _h1Rt = transform.Find("RawImage_H1").GetComponent<RectTransform>();
             _h1MarkerRt = transform.Find("RawImage_H1/Marker").GetComponent<RectTransform>();
-            _h1Mat = _mainRt.GetComponent<RawImage>().material;
+            _h1Mat = new Material(_h1Rt.GetComponent<RawImage>().material);
+            _h1Rt.GetComponent<RawImage>().material = _h1Mat; 
 
             _h2Rt = transform.Find("RawImage_H2").GetComponent<RectTransform>();
             _h2MarkerRt = transform.Find("RawImage_H2/Marker").GetComponent<RectTransform>();
-            _h2Mat = _h2Rt.GetComponent<RawImage>().material;
+            _h2Mat = new Material(_h2Rt.GetComponent<RawImage>().material);
+            _h2Rt.GetComponent<RawImage>().material = _h2Mat; 
 
             _vRt = transform.Find("RawImage_V").GetComponent<RectTransform>();
             _vMarkerRt = transform.Find("RawImage_V/Marker").GetComponent<RectTransform>();
-            _vMat = _vRt.GetComponent<RawImage>().material;
+            _vMat = new Material(_vRt.GetComponent<RawImage>().material);
+            _vRt.GetComponent<RawImage>().material = _vMat; 
 
             _colorPreviewImage = transform.Find("ColorPreviewImage").GetComponent<Image>();
 

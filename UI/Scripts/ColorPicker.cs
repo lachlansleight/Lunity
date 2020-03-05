@@ -21,7 +21,7 @@ namespace Lunity
             set
             {
                 if (_colorPreviewImage == null) _colorPreviewImage = GetComponent<Image>();
-                _colorPreviewImage.color = value;
+                HandleColorChange(value);
             }
         }
         
