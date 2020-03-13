@@ -26,5 +26,10 @@ namespace Lunity
         {
             return Mathf.Lerp(min, max, t);
         }
+
+        public float InverseLerp(float value)
+        {
+            return Mathf.InverseLerp(min, max, value);
+        }
     }
 }

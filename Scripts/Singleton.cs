@@ -20,7 +20,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
 		get
 		{
-			if (_shuttingDown)
+			if (_shuttingDown && Application.isPlaying)
 			{
 				Debug.LogWarning("[Singleton] Instance '" + typeof(T) + "' already destroyed. Returning null.");
 				return null;
