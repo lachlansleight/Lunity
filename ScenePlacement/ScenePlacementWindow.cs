@@ -85,32 +85,40 @@ namespace Lunity
                 }
 
                 EditorGUILayout.EndHorizontal();
-                
-                EditorGUILayout.Space();
-                using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox)) {
-                    if (_config.PrefabSets[_currentSet].Options.Count == 0) EditorGUILayout.LabelField("Add a Prefab to Begin!");
-                    else {
-                        for (var i = 0; i < _config.PrefabSets[_currentSet].Options.Count; i++) {
-                            EditorGUILayout.BeginHorizontal();
-                            EditorGUI.BeginChangeCheck();
-                            _config.PrefabSets[_currentSet].Options[i] = (GameObject) EditorGUILayout.ObjectField(_config.PrefabSets[_currentSet].Options[i], typeof(GameObject), false);
-                            if (EditorGUI.EndChangeCheck()) {
-                                EditorUtility.SetDirty(_config);
+
+                if (_config.HasSets()) {
+                    EditorGUILayout.Space();
+                    using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox)) {
+                        if (_config.PrefabSets[_currentSet].Options.Count == 0)
+                            EditorGUILayout.LabelField("Add a Prefab to Begin!");
+                        else {
+                            for (var i = 0; i < _config.PrefabSets[_currentSet].Options.Count; i++) {
+                                EditorGUILayout.BeginHorizontal();
+                                EditorGUI.BeginChangeCheck();
+                                _config.PrefabSets[_currentSet].Options[i] =
+                                    (GameObject) EditorGUILayout.ObjectField(_config.PrefabSets[_currentSet].Options[i],
+                                        typeof(GameObject), false);
+                                if (EditorGUI.EndChangeCheck()) {
+                                    EditorUtility.SetDirty(_config);
+                                }
+
+                                if (GUILayout.Button("X")) {
+                                    _config.PrefabSets[_currentSet].Options.RemoveAt(i);
+                                    EditorUtility.SetDirty(_config);
+                                }
+
+                                EditorGUILayout.EndHorizontal();
                             }
-                            if (GUILayout.Button("X")) {
-                                _config.PrefabSets[_currentSet].Options.RemoveAt(i);
-                                EditorUtility.SetDirty(_config);
-                            }
-                            EditorGUILayout.EndHorizontal();
+                        }
+
+                        if (GUILayout.Button("Add Prefab")) {
+                            _config.PrefabSets[_currentSet].Options.Add(null);
+                            EditorUtility.SetDirty(_config);
                         }
                     }
 
-                    if (GUILayout.Button("Add Prefab")) {
-                        _config.PrefabSets[_currentSet].Options.Add(null);
-                        EditorUtility.SetDirty(_config);
-                    }
+                    EditorGUILayout.Space();
                 }
-                EditorGUILayout.Space();
             }
             
             EditorGUILayout.Space();
