@@ -54,9 +54,7 @@ namespace Lunity
                 
                 EditorGUI.BeginChangeCheck();
                 _config.PrefabSets[_currentSet].Name = EditorGUILayout.TextField("Set Name", _config.PrefabSets[_currentSet].Name);
-                if (EditorGUI.EndChangeCheck()) {
-                    EditorUtility.SetDirty(_config);
-                }
+                if (EditorGUI.EndChangeCheck()) EditorUtility.SetDirty(_config);
                 EditorGUILayout.BeginHorizontal();
                 if(_config.PrefabSets.Count > 1) {
                     if (GUILayout.Button("<")) {
@@ -96,11 +94,8 @@ namespace Lunity
                                 EditorGUILayout.BeginHorizontal();
                                 EditorGUI.BeginChangeCheck();
                                 _config.PrefabSets[_currentSet].Options[i] =
-                                    (GameObject) EditorGUILayout.ObjectField(_config.PrefabSets[_currentSet].Options[i],
-                                        typeof(GameObject), false);
-                                if (EditorGUI.EndChangeCheck()) {
-                                    EditorUtility.SetDirty(_config);
-                                }
+                                    (GameObject) EditorGUILayout.ObjectField(_config.PrefabSets[_currentSet].Options[i],typeof(GameObject), false);
+                                if (EditorGUI.EndChangeCheck()) EditorUtility.SetDirty(_config);
 
                                 if (GUILayout.Button("X")) {
                                     _config.PrefabSets[_currentSet].Options.RemoveAt(i);

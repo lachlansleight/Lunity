@@ -56,11 +56,11 @@ public class ScenePlacementConfig : ScriptableObject
 	#if UNITY_EDITOR
 	public static ScenePlacementConfig GetAssetInstance()
 	{
-		var instance = AssetDatabase.LoadAssetAtPath<ScenePlacementConfig>("Assets/Lunity/ScenePlacement/ScenePlacementConfig.asset");
+		var instance = AssetDatabase.LoadAssetAtPath<ScenePlacementConfig>("Assets/Lunity/ScenePlacement/Editor/ScenePlacementConfig.asset");
 		if (instance != null) return instance;
 
 		instance = CreateInstance<ScenePlacementConfig>();
-		AssetDatabase.CreateAsset(instance, "Assets/Lunity/ScenePlacement/ScenePlacementConfig.asset");
+		AssetDatabase.CreateAsset(instance, "Assets/Lunity/ScenePlacement/Editor/ScenePlacementConfig.asset");
 		AssetDatabase.SaveAssets();
 		return instance;
 	}

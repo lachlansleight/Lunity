@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc39c97554962f844afecc809e9035c7, type: 3}
+  m_Name: ScenePlacementConfig
+  m_EditorClassIdentifier: 
+  PrefabSets:
+  - Name: Bowenia Spectabilis
+    Options:
+    - {fileID: 6378817599590360685, guid: 5333033b395257147b15d17b66f1b285, type: 3}
+    - {fileID: 3388084959481925160, guid: d03a58060364ae240be9dc1b1d704354, type: 3}
+    - {fileID: 7828070894526163308, guid: 26a17c99f463f9c4db95a227fae6f152, type: 3}
+    - {fileID: 8216137193132464752, guid: 8ae084fcfc4c404419532c1d8b603c56, type: 3}
+    - {fileID: 8409318339592231170, guid: 8b72fe738a06c1945a27b904d3a1fa42, type: 3}
+    - {fileID: 5553569763561131384, guid: b67fba69c2133e6449f6d646b2eef0d7, type: 3}
+  - Name: Butress
+    Options:
+    - {fileID: 1312412270022694478, guid: d70e491007bd289469179be778d7a6a0, type: 3}
+    - {fileID: 7945874750850167398, guid: 910ea14ae7810bf4bbf11de736f286ca, type: 3}
+    - {fileID: 3715131907371243218, guid: ee75a515ec0964b4da603040def8775b, type: 3}
+    - {fileID: 6350808885246417364, guid: dbdcd8a9db26e6c41ae1028689dc5722, type: 3}
+    - {fileID: 995452035128116083, guid: fa2dd7980f3a13443a9ddfd665ba78d1, type: 3}
+  - Name: Pandanus
+    Options:
+    - {fileID: 5246341541031716619, guid: 660f56136be5c29499bfa1cf6ec26550, type: 3}
+    - {fileID: 6383984625856327705, guid: cd634e7711c71e74cbcd5c24727d14ba, type: 3}
+  - Name: Understory Saplings
+    Options:
+    - {fileID: 2601152928779525037, guid: 302cb27d422e3c24094596338b4af827, type: 3}
+    - {fileID: 2147768763391192038, guid: b778d2513c5e7f549aee4847455e707e, type: 3}
+    - {fileID: 4524021532302186719, guid: 6f5fd0bacb0986e44b776d8eb7a5b769, type: 3}
+    - {fileID: 1530255545178961635, guid: 3c56fce48d34eb9409a96c34ab76c90e, type: 3}
+    - {fileID: 8871406761357236782, guid: 183a9144217ef3848a1b6621d3fb38e1, type: 3}
+    - {fileID: 6473350784788698662, guid: 9f47176bd4bb4824e8d9c78f9b7eefac, type: 3}
+    - {fileID: 4045736743988862017, guid: 43cad9711272612419f07b6d30de511c, type: 3}
+    - {fileID: 8695628051043267937, guid: ea5e3af55dde74643bf6f806752834c8, type: 3}
+  - Name: Fan Palm Big
+    Options:
+    - {fileID: 6900159792358910795, guid: a0d8cb99ffcf1c64daf1cd8b605a552e, type: 3}
+    - {fileID: 9164019620996979240, guid: eb56f19caf9340a429c5f8aabf960a0c, type: 3}
+    - {fileID: 4192022853568309152, guid: 705593ccab43cb24ba291cf7c0a47122, type: 3}
+  - Name: Stinging Plant
+    Options:
+    - {fileID: 8360467954997686611, guid: 9b366c43735a20e45be5724d284ba684, type: 3}
+    - {fileID: 4842126573676734552, guid: 44eae7e4e974090429e049bd3652b86e, type: 3}
+    - {fileID: 3712437914648244974, guid: 5ced9eeb247873047977f96a9c85aa25, type: 3}
+  - Name: MidTree
+    Options:
+    - {fileID: 6186763760570167314, guid: a7bd38cdd227641489fe9cb3623af248, type: 3}
+  - Name: Temp Plant
+    Options:
+    - {fileID: 3212867468472456102, guid: b18765e20246005478c9cb390e2e76cb, type: 3}
+  - Name: Fan Palm Small
+    Options:
+    - {fileID: 1529800572986506447, guid: 2adc93d87a3c46d42b1cd472460f9abb, type: 3}
+    - {fileID: 1379814498591623543, guid: 3a0122c0a700e154594fa87e8a901257, type: 3}
+    - {fileID: 8851774828095173136, guid: 93e13f51fb62c9542a8d0b6405eb87b2, type: 3}
+    - {fileID: 5181947251605800292, guid: f78eb14aeca07cb429c6ceac3aa8290c, type: 3}
