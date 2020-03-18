@@ -32,6 +32,11 @@ public class BasicConsole : Singleton<BasicConsole>
     }
 
     public Text OutputText;
+    public Image BackgroundImage;
+    public bool KeyToToggle;
+    public bool StartOn = true;
+    public KeyCode ToggleKey = KeyCode.BackQuote;
+    
     private RectTransform _outputTextParent;
     private List<LogEntry> _logEntries;
     private int _lines;
@@ -50,6 +55,20 @@ public class BasicConsole : Singleton<BasicConsole>
         if (_logEntries != null) {
             foreach (var entry in _logEntries) entry.RecalculateLineCount(_columnCount);
             RepaintText();
+        }
+
+        if (KeyToToggle) {
+            OutputText.gameObject.SetActive(StartOn);
+            BackgroundImage.gameObject.SetActive(StartOn);
+        }
+    }
+
+    private void Update()
+    {
+        if (!KeyToToggle) return;
+        if (Input.GetKeyDown(ToggleKey)) {
+            OutputText.gameObject.SetActive(!OutputText.gameObject.activeSelf);
+            BackgroundImage.gameObject.SetActive(!BackgroundImage.gameObject.activeSelf);
         }
     }
 
