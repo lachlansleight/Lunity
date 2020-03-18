@@ -62,6 +62,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 		if (_instance == null) {
 			_instance = this as T;
 			DontDestroyOnLoad ( gameObject );
+			_shuttingDown = false;
 		} else if(!_preAccess) {
 			Debug.LogError("Error - there is already another initialized Singleton instance of type '" + typeof(T) + "' in the scene. Destroying this one");
 			Destroy (gameObject);
