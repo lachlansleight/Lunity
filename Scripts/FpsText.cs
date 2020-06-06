@@ -9,7 +9,8 @@ namespace Lunity
     {
 
         [Range(1, 200)] public int AverageCount = 5;
-
+        public float FpsValue;
+        
         private Text _text;
 
         private List<float> _fpsValues;
@@ -33,8 +34,10 @@ namespace Lunity
             }
 
             sum /= _fpsValues.Count;
+            
+            FpsValue = sum;
 
-            _text.text = sum.ToString("0.0");
+            _text.text = FpsValue.ToString("0.0");
         }
     }
 }
