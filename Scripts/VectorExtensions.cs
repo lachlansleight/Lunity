@@ -179,5 +179,15 @@ namespace Lunity
         {
             return new[] {q.x, q.y, q.z, q.w};
         }
+
+        public static float GetMagnitude(this Quaternion q)
+        {
+            return Mathf.Sqrt(q.GetSqrMagnitude());
+        }
+        
+        public static float GetSqrMagnitude(this Quaternion q)
+        {
+            return q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w;
+        }
     }
 }
