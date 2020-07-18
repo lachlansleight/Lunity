@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,31 +14,40 @@ namespace Lunity
         
         private Text _text;
 
-        private List<float> _fpsValues;
+        private float[] _fpsValues;
+        private int _fpsValueIndex;
+
+        private StringBuilder _stringBuilder;
 
         private void Awake()
         {
             _text = GetComponent<Text>();
-            _fpsValues = new List<float>();
+            _fpsValues = new float[AverageCount];
+            
+            _stringBuilder = new StringBuilder(16);
         }
 
         private void Update()
         {
             var newFps = (1f / Time.unscaledDeltaTime);
 
-            _fpsValues.Add(newFps);
-            while (_fpsValues.Count > AverageCount) _fpsValues.RemoveAt(0);
+            _fpsValues[_fpsValueIndex] = newFps;
+            _fpsValueIndex = (_fpsValueIndex + 1) % _fpsValues.Length;
 
             var sum = 0f;
             foreach (var value in _fpsValues) {
                 sum += value;
             }
 
-            sum /= _fpsValues.Count;
+            sum /= _fpsValues.Length;
             
             FpsValue = sum;
-
-            _text.text = FpsValue.ToString("0.0");
+            
+            _stringBuilder.Clear();
+            _stringBuilder.Append((int) FpsValue);
+            _stringBuilder.Append(".");
+            _stringBuilder.Append((int) (FpsValue % 1f * 10f));
+            _text.text = _stringBuilder.ToString();
         }
     }
 }
