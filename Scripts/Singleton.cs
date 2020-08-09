@@ -35,7 +35,14 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 				
 				// Search for existing instance.
 				_instance = (T)FindObjectOfType(typeof(T));
- 
+
+				if (_instance == null) {
+					var attempt = Resources.FindObjectsOfTypeAll<T>()[0];
+					if (attempt != null) {
+						Debug.LogError("Error - Singleton instance '" + typeof(T) + "' appears to be in the scene, but inactive. Singletons must begin as Active. Destroying and re-creating!");
+					}
+				}
+				
 				// Create new instance if one doesn't already exist.
 				if (_instance != null) {
 					_preAccess = true;
