@@ -53,7 +53,7 @@ namespace Lunity
                 if (_currentSet < 0) _currentSet = 0;
                 
                 EditorGUI.BeginChangeCheck();
-                _config.PrefabSets[_currentSet].Name = EditorGUILayout.TextField("Set Name", _config.PrefabSets[_currentSet].Name);
+                _config.PrefabSets[_currentSet].Name = EditorGUILayout.TextField($"Prefab Set {_currentSet + 1}/{_config.PrefabSets.Count}", _config.PrefabSets[_currentSet].Name);
                 if (EditorGUI.EndChangeCheck()) EditorUtility.SetDirty(_config);
                 EditorGUILayout.BeginHorizontal();
                 if(_config.PrefabSets.Count > 1) {
@@ -146,6 +146,9 @@ namespace Lunity
             if (_randomiseScale) {
                 _randomiseScaleAmount = EditorGUILayout.Slider("Randomise Scale Amount", _randomiseScaleAmount, 0f, 1f);
             }
+
+            EditorGUILayout.Space();
+            EditorGUILayout.HelpBox("Ctrl+Shift+RightClick to place prefabs\nCtrl+Shift+MouseWheel to cycle prefab sets", MessageType.Info);
         }
 
         private void OnEnable() {
