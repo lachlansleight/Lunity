@@ -135,10 +135,11 @@ Assets/StreamingAssets/crashlytics-build.properties
 /Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll
 /Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll.meta
 /Plugins/Editor/JetBrains.meta
-/RISC/Dependencies/SDKs/*
 /Plugins/*
 /Resources/*
 Plugins.meta
 Resources.meta
 
 # PROJECT SPECIFIC:
+Editor/ScenePlacement/ScenePlacementConfig.asset
+Editor/ScenePlacement/ScenePlacementConfig.asset.meta
