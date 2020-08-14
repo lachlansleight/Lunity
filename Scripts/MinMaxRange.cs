@@ -31,5 +31,16 @@ namespace Lunity
         {
             return Mathf.InverseLerp(min, max, value);
         }
+
+        public void ExpandToFit(float value)
+        {
+            min = Mathf.Min(min, value);
+            max = Mathf.Max(max, value);
+        }
+
+        public static MinMaxRange MaxValue => new MinMaxRange(-float.MaxValue, float.MaxValue);
+        public static MinMaxRange InverseMaxValue => new MinMaxRange(float.MaxValue, -float.MaxValue);
+        public static MinMaxRange Zero => new MinMaxRange(0f, 0f);
+        public static MinMaxRange One = new MinMaxRange(0f, 1f);
     }
 }
