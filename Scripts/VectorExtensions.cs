@@ -247,7 +247,7 @@ namespace Lunity
             return new Vector3(v[indexA], v[indexB], v[indexC]);
         }
 
-        public static Vector2 To2D(this Vector4v, int indexA, int indexB)
+        public static Vector2 To2D(this Vector4 v, int indexA, int indexB)
         {
             return new Vector2(v[indexA], v[indexB]);
         }
