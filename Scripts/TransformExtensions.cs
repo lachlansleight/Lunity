@@ -61,5 +61,12 @@ namespace Lunity
             offset.Normalize();
             tr.rotation = Quaternion.LookRotation(offset, Vector3.up);
         }
+
+        public static void FlatLookAtCheap(this Transform tr, Vector3 position)
+        {
+            var offset = position - tr.position;
+            var angle = Mathf.Atan2(offset.z, offset.x);
+            tr.eulerAngles = Vector3.up * angle;
+        }
     }
 }

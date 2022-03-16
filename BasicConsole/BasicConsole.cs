@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Lunity
 {
-    public class BasicConsole : Singleton<BasicConsole>
+    public class BasicConsole : SimpleSingleton<BasicConsole>
     {
 
         private class LogEntry
@@ -41,6 +41,9 @@ namespace Lunity
         public bool KeyToToggle;
         public bool StartOn = true;
         public KeyCode ToggleKey = KeyCode.BackQuote;
+        public bool ToggleRequiresShift;
+        public bool ToggleRequiresCtrl;
+        public bool ToggleRequiresAlt;
         public bool BindToUnityConsole;
 
         private RectTransform _outputTextParent;
@@ -126,7 +129,7 @@ namespace Lunity
             }
 
             if (InputText.isFocused) {
-                if (KeyToToggle && Input.GetKeyDown(ToggleKey)) {
+                if (KeyToToggle && GetToggle()) {
                     InputText.text = "";
                     if(EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
                 }
@@ -147,7 +150,7 @@ namespace Lunity
             } 
 
             if (!KeyToToggle) return;
-            if (Input.GetKeyDown(ToggleKey)) {
+            if (GetToggle()) {
                 SetActive(!_active);
 
                 if (_active) {
@@ -163,6 +166,15 @@ namespace Lunity
                     if(EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
                 }
             }
+        }
+
+        private bool GetToggle()
+        {
+            if (!Input.GetKeyDown(ToggleKey)) return false;
+            if (ToggleRequiresShift && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift)) return false;
+            if (ToggleRequiresAlt && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.RightAlt)) return false;
+            if (ToggleRequiresCtrl && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl)) return false;
+            return true;
         }
 
         public static void Log(string log, string color = "#FFFFFFFF")

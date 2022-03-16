@@ -31,4 +31,17 @@ public class LunityMath
 			? Mathf.Sqrt(0.5f * (1f - t)) 
 			: Mathf.Sqrt(0.5f * (1f + t));
 	}
+
+	/// A more useful sine function - returns values from zero to one, and has a period of 1.0
+	public static float Sin01(float t)
+	{
+		var sine = Mathf.Sin(t * Mathf.PI * 2f);
+		return sine * 0.5f + 0.5f;
+	}
+
+	/// Convert a value from 0-1 into a value suitable for Mixer sliders (i.e. 0 -> 1 becomes -80dB -> 0dB)
+	public static float VolumePower(float linearValue)
+	{
+		return Mathf.Log10(Mathf.Max(linearValue, 0.0001f)) * 20f;
+	}
 }

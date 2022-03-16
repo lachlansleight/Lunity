@@ -48,7 +48,7 @@ namespace Lunity
         {
             return new [] {v.x, v.y};
         }
-        
+
         public static Vector3 To3DXY(this Vector2 v, float z = 0f)
         {
             return new Vector3(v.x, v.y, z);
@@ -64,6 +64,11 @@ namespace Lunity
             return new Vector3(x, v.y, v.x);
         }
 
+        public static Vector2 ScaleInPlace(this Vector2 v, Vector2 scale)
+        {
+            return new Vector2(v.x * scale.x, v.y * scale.y);
+        }
+
         public static Vector2Int ToInt(this Vector2 v, bool round = false)
         {
             return new Vector2Int(
@@ -76,7 +81,8 @@ namespace Lunity
         {
             return new Vector2(v.x, v.y);
         }
-        
+
+
         //==============================================================================================================
         //==============================================================================================================
         //==                                        VECTOR 3 EXTENSIONS                                               ==
@@ -139,7 +145,7 @@ namespace Lunity
         {
             return new [] {v.x, v.y, v.z};
         }
-        
+
         public static Vector2 To2DXY(this Vector3 v)
         {
             return new Vector2(v.x, v.y);
@@ -154,7 +160,12 @@ namespace Lunity
         {
             return new Vector2(v.y, v.z);
         }
-        
+
+        public static Vector3 ScaleInPlace(this Vector3 v, Vector3 scale)
+        {
+            return new Vector3(v.x * scale.x, v.y * scale.y, v.z * scale.z);
+        }
+
         public static Vector3Int ToInt(this Vector3 v, bool round = false)
         {
             return new Vector3Int(
@@ -230,6 +241,16 @@ namespace Lunity
             u.w += increment;
             v = u;
         }
+
+        public static Vector3 To3D(this Vector4 v, int indexA, int indexB, int indexC)
+        {
+            return new Vector3(v[indexA], v[indexB], v[indexC]);
+        }
+
+        public static Vector2 To2D(this Vector4v, int indexA, int indexB)
+        {
+            return new Vector2(v[indexA], v[indexB]);
+        }
         
         public static Vector4 ApplyScale(this Vector4 v, float x, float y, float z, float w)
         {
@@ -239,6 +260,11 @@ namespace Lunity
         public static float[] ToArray(this Vector4 v)
         {
             return new [] {v.x, v.y, v.z, v.w};
+        }
+
+        public static Vector4 ScaleInPlace(this Vector4 v, Vector4 scale)
+        {
+            return new Vector4(v.x * scale.x, v.y * scale.y, v.z * scale.z, v.w * scale.w);
         }
     }
 }
