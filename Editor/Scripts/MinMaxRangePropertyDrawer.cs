@@ -5,7 +5,8 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(MinMaxRange))]
 public class MinMaxRangePropertyDrawer : PropertyDrawer
 {
-    const float CELL_HEIGHT = 16;
+    private const float SubLabelSpacing = 4;
+    private const float BottomSpacing = 2;
 
     Rect position;
     SerializedProperty property;
@@ -14,31 +15,43 @@ public class MinMaxRangePropertyDrawer : PropertyDrawer
     // Draw the property inside the given rect
     public override void OnGUI(Rect pos, SerializedProperty prop, GUIContent lab)
     {
-        position = pos;
-        property = prop;
+        pos.height -= BottomSpacing;
+        
         label = lab;
-
-        // Using BeginProperty / EndProperty on the parent property means that
-        // prefab override logic works on the entire property.
-        EditorGUI.BeginProperty(position, label, property);
-
-        // Draw label
-        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
-
-        // Don't make child fields be indented
-        var indent = EditorGUI.indentLevel;
-        EditorGUI.indentLevel = 0;
-
-        var minRect = new Rect(pos.x + EditorGUIUtility.labelWidth, pos.y, 80f, pos.height);
-        var maxRect = new Rect(pos.x + EditorGUIUtility.labelWidth + 95f, pos.y, 100f, pos.height);
-
-        EditorGUI.PropertyField(minRect, property.FindPropertyRelative("min"), GUIContent.none);
-        EditorGUI.PropertyField(maxRect, property.FindPropertyRelative("max"), GUIContent.none);
-
-        // Set indent back to what it was
-        EditorGUI.indentLevel = indent;
-
+        label = EditorGUI.BeginProperty(pos, label, prop);
+        
+        var contentRect = EditorGUI.PrefixLabel(pos, GUIUtility.GetControlID(FocusType.Passive), label);
+        var labels      = new[] {new GUIContent("min"), new GUIContent("max")};
+        var properties  = new[] {prop.FindPropertyRelative("min"), prop.FindPropertyRelative("max")};
+        DrawMultiplePropertyFields(contentRect, labels, properties);
+ 
         EditorGUI.EndProperty();
+    }
+    
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
+        return base.GetPropertyHeight(property, label) + BottomSpacing;
+    }
+    
+    //Thanks, https://forum.unity.com/threads/making-a-proper-drawer-similar-to-vector3-how.385532/
+    private static void DrawMultiplePropertyFields(Rect pos, GUIContent[] subLabels, SerializedProperty[] props) {
+        // backup gui settings
+        var indent     = EditorGUI.indentLevel;
+        var labelWidth = EditorGUIUtility.labelWidth;
+     
+        // draw properties
+        var propsCount = props.Length;
+        var width      = (pos.width - (propsCount - 1) * SubLabelSpacing) / propsCount;
+        var contentPos = new Rect(pos.x, pos.y, width, pos.height);
+        EditorGUI.indentLevel = 0;
+        for (var i = 0; i < propsCount; i++) {
+            EditorGUIUtility.labelWidth = EditorStyles.label.CalcSize(subLabels[i]).x;
+            EditorGUI.PropertyField(contentPos, props[i], subLabels[i]);
+            contentPos.x += width + 4;
+        }
+ 
+        // restore gui settings
+        EditorGUIUtility.labelWidth = labelWidth;
+        EditorGUI.indentLevel       = indent;
     }
 
 }

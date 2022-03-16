@@ -37,7 +37,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 				_instance = (T)FindObjectOfType(typeof(T));
 
 				if (_instance == null) {
-					var attempt = Resources.FindObjectsOfTypeAll<T>()[0];
+					var instances = Resources.FindObjectsOfTypeAll<T>();
+					var attempt = instances.Length > 0 ? Resources.FindObjectsOfTypeAll<T>()[0] : null;
 					if (attempt != null) {
 						Debug.LogError("Error - Singleton instance '" + typeof(T) + "' appears to be in the scene, but inactive. Singletons must begin as Active. Destroying and re-creating!");
 					}

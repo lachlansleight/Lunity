@@ -52,5 +52,26 @@ namespace Lunity
 
 			return choice;
 		}
+
+		/// <summary>
+		/// Gets a random sign - either one or negative one
+		/// </summary>
+		public static int RandomSign()
+		{
+			if (Random.Range(0, 2) == 1) return 1;
+			else return -1;
+		}
+
+		public static Quaternion FlatRotation()
+		{
+			var angle = Random.value * Mathf.PI * 2f;
+			var fwd = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+			return Quaternion.LookRotation(fwd, Vector3.up);
+		}
+
+		public static bool Boolean()
+		{
+			return Random.value < 0.5f;
+		}
 	}
 }

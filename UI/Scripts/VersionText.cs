@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
-public class VersionText : MonoBehaviour
+namespace Lunity
 {
-
-    public bool PrependVersion = false;
-    
-    // Start is called before the first frame update
-    public void Awake()
+    [RequireComponent(typeof(Text))]
+    public class VersionText : MonoBehaviour
     {
-        GetComponent<Text>().text = (PrependVersion ? "Version " : "") + Application.version;
+        public string Prefix = "v";
+
+        // Start is called before the first frame update
+        public void Awake()
+        {
+            GetComponent<Text>().text = Prefix + Application.version;
+        }
     }
 }

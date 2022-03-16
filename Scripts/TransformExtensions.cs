@@ -53,5 +53,13 @@ namespace Lunity
             if(space == Space.World) tr.position = u;
             else tr.localPosition = u;
         }
+
+        public static void FlatLookAt(this Transform tr, Vector3 position)
+        {
+            var offset = position - tr.position;
+            offset.y = 0f;
+            offset.Normalize();
+            tr.rotation = Quaternion.LookRotation(offset, Vector3.up);
+        }
     }
 }

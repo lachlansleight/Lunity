@@ -38,9 +38,24 @@ namespace Lunity
             max = Mathf.Max(max, value);
         }
 
+        public bool Contains(float value)
+        {
+            return value >= min && value <= max;
+        }
+
+        public float Clamp(float value)
+        {
+            return Mathf.Clamp(value, min, max);
+        }
+
         public static MinMaxRange MaxValue => new MinMaxRange(-float.MaxValue, float.MaxValue);
         public static MinMaxRange InverseMaxValue => new MinMaxRange(float.MaxValue, -float.MaxValue);
         public static MinMaxRange Zero => new MinMaxRange(0f, 0f);
         public static MinMaxRange One = new MinMaxRange(0f, 1f);
+
+        public override string ToString()
+        {
+            return "(min: " + min + ", max: " + max + ")";
+        }
     }
 }

@@ -122,6 +122,22 @@ namespace Lunity
 		}
 
 		/// <summary>
+		/// Apply an adaptive ease in/out function with expressive parameters for the incoming and outgoing 'velocity'.
+		/// By @FarbsMcFarbs at https://twitter.com/FarbsMcFarbs/status/1456830625617432576
+		/// </summary>
+		/// <param name="t">The interpolation parameter to apply easing to</param>
+		/// <param name="inVelocity">The subjective 'speed' at which the function moves away from zero. At high values, can cause the function to overshoot one</param>
+		/// <param name="outVelocity">The subjective 'speed' at which the function approaches one. At high values, can cause the function to go below zero at the beginning of its region</param>
+		public static float CubicBiAdaptive(float t, float inVelocity, float outVelocity)
+		{
+			if (t < 0 || t > 1) t = Mathf.Clamp01(t);
+			var pow3 = Mathf.Pow(outVelocity + t - 2f, 3f);
+			var pow2 = Mathf.Pow(-2f * inVelocity - outVelocity + 3f, 2f);
+			var pow1 = inVelocity * t;
+			return pow3 + pow3 + pow1;
+		}
+
+		/// <summary>
 		/// Apply a cubic ease in
 		/// </summary>
 		/// <param name="t">The interpolation parameter to apply easing to</param>

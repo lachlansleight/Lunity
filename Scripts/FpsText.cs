@@ -11,6 +11,9 @@ namespace Lunity
 
         [Range(1, 200)] public int AverageCount = 5;
         public float FpsValue;
+        public string Prefix;
+        public string Suffix;
+        public string Format = "0";
         
         private Text _text;
 
@@ -44,9 +47,9 @@ namespace Lunity
             FpsValue = sum;
             
             _stringBuilder.Clear();
-            _stringBuilder.Append((int) FpsValue);
-            _stringBuilder.Append(".");
-            _stringBuilder.Append((int) (FpsValue % 1f * 10f));
+            if (!string.IsNullOrEmpty(Prefix)) _stringBuilder.Append(Prefix);
+            _stringBuilder.Append(FpsValue.ToString(Format));
+            if (!string.IsNullOrEmpty(Suffix)) _stringBuilder.Append(Suffix);
             _text.text = _stringBuilder.ToString();
         }
     }
