@@ -68,5 +68,13 @@ namespace Lunity
             var angle = Mathf.Atan2(offset.z, offset.x);
             tr.eulerAngles = Vector3.up * angle;
         }
+
+        public static void SetParentNeutral(this Transform tr, Transform parent)
+        {
+            tr.SetParent(parent);
+            tr.localPosition = Vector3.zero;
+            tr.localRotation = Quaternion.identity;
+            tr.localScale = Vector3.one;
+        }
     }
 }
