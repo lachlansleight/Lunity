@@ -27,16 +27,25 @@ public class QuickUiSlider : QuickUiSceneControl
         foreach (var attribute in attributes) {
             if (attribute.AttributeType != typeof(RangeAttribute)) continue;
             
+            if (control.TargetMember.Type == typeof(int)) _slider.wholeNumbers = true;
             _slider.minValue = (float)attribute.ConstructorArguments[0].Value;
             _slider.maxValue = (float)attribute.ConstructorArguments[1].Value;
             hasRange = true;
         }
 
         if (hasRange) {
-            _slider.value = (float) _control.GetValue();
+            if (control.TargetMember.Type == typeof(int)) _slider.value = (int) _control.GetValue();
+            else _slider.value = (float) _control.GetValue();
             _slider.onValueChanged.AddListener(val =>
             {
-                _control.SetValue(val);
+                if (control.TargetMember.Type == typeof(int)) {
+                    _control.SetValue((int)val);
+                    _slider.value = val;
+                } else {
+                    _control.SetValue(val);
+                    _slider.value = val;
+                }
+                
                 _value.text = val.ToString(CultureInfo.InvariantCulture);
             });
         } else {
@@ -48,9 +57,15 @@ public class QuickUiSlider : QuickUiSceneControl
         
         _value.onValueChanged.AddListener(newVal =>
         {
-            var val = float.Parse(newVal);
-            _control.SetValue(val);
-            _slider.value = val;
+            if (control.TargetMember.Type == typeof(int)) {
+                var val = int.Parse(newVal);
+                _control.SetValue(val);
+                _slider.value = val;
+            } else {
+                var val = float.Parse(newVal);
+                _control.SetValue(val);
+                _slider.value = val;
+            }
         });
 
         _value.text = _control.GetValue().ToString();
@@ -59,7 +74,8 @@ public class QuickUiSlider : QuickUiSceneControl
     public override void RefreshValue()
     {
         base.RefreshValue();
-        _slider.value = (float) _control.GetValue();
+        if (_control.TargetMember.Type == typeof(int)) _slider.value = (int) _control.GetValue();
+        else _slider.value = (float) _control.GetValue();
         _value.text = _control.GetValue().ToString();
     }
 }

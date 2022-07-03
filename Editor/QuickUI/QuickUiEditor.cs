@@ -8,11 +8,13 @@ using UnityEngine;
 public class QuickUiEditor : Editor
 {
 
+	private SerializedProperty _refreshOnAwake;
 	private SerializedProperty _controls;
 	private ReorderableList _controlList;
 
 	public void OnEnable()
 	{
+		_refreshOnAwake = serializedObject.FindProperty("RefreshControlsOnAwake");
 		_controls = serializedObject.FindProperty("Controls");
 		_controlList = new ReorderableList(serializedObject, _controls, true, true, true, true);
 
@@ -24,6 +26,7 @@ public class QuickUiEditor : Editor
 	{
 		//base.OnInspectorGUI();
 		serializedObject.Update();
+		EditorGUILayout.PropertyField(_refreshOnAwake);
 		_controlList.DoLayoutList();
 		serializedObject.ApplyModifiedProperties();
 		if (GUILayout.Button("Refresh Controls")) {

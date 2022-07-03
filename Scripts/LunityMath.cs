@@ -44,4 +44,10 @@ public class LunityMath
 	{
 		return Mathf.Log10(Mathf.Max(linearValue, 0.0001f)) * 20f;
 	}
+
+	/// Remaps an input float from one range to another
+	public static float Map(float fromMin, float fromMax, float toMin, float toMax, float t)
+	{
+		return Mathf.Lerp(toMin, toMax, Mathf.InverseLerp(fromMin, fromMax, t));
+	}
 }

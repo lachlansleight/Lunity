@@ -133,7 +133,12 @@ namespace Lunity
 		{
 			DrawWorldLine(start, end, Color.white);
 		}
-		public static void DrawWorldLine(Vector3 start, Vector3 end, Color color)
+		public static void DrawWorldLine(Vector3 start, Vector3 end, float widthCm)
+		{
+			DrawWorldLine(start, end, Color.white, widthCm);
+		}
+		
+		public static void DrawWorldLine(Vector3 start, Vector3 end, Color color, float widthCm = 0.5f)
 		{
 			if (_unlitShader == null) _unlitShader = Shader.Find("Unlit/Color");
 			var mat = new Material(_unlitShader);
@@ -146,10 +151,11 @@ namespace Lunity
 				else Object.DestroyImmediate(temp);
 			}
 
+			var width = widthCm * 0.01f;
 			Graphics.DrawMesh(_cylinderMesh, Matrix4x4.TRS(
 				(start + end) * 0.5f, 
 				Quaternion.LookRotation(end - start, Vector3.up) * Quaternion.Euler(90f, 0f, 0f), 
-				new Vector3(0.005f, (end - start).magnitude * 0.5f, 0.005f)), mat, 0);
+				new Vector3(width, (end - start).magnitude * 0.5f, width)), mat, 0);
 		}
 
 		public static void LogObject(string message = "", object var = null)

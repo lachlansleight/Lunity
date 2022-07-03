@@ -12,6 +12,15 @@ public static class ArrayUtils
 		}
 		return output;
 	}
+	
+	public static TU[] Map<T, TU>(this T[] arr, Func<T, int, TU> function)
+	{
+		var output = new TU[arr.Length];
+		for (var i = 0; i < arr.Length; i++) {
+			output[i] = function(arr[i], i);
+		}
+		return output;
+	}
 
 	public static TU Reduce<T, TU>(this T[] arr, Func<TU, T, TU> function, TU start)
 	{
@@ -42,6 +51,13 @@ public static class ArrayUtils
 	{
 		for (var i = 0; i < arr.Length; i++) {
 			function(arr[i]);
+		}
+	}
+	
+	public static void ForEach<T>(this T[] arr, Action<T, int> function)
+	{
+		for (var i = 0; i < arr.Length; i++) {
+			function(arr[i], i);
 		}
 	}
 

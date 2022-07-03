@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using Lunity;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,7 +9,7 @@ using UnityEditor;
 [RequireComponent(typeof(RectTransform))]
 public class QuickUI : MonoBehaviour
 {
-
+    public bool RefreshControlsOnAwake = true;
     public RectTransform ControlParent;
     public QuickUiControl[] Controls;
 
@@ -22,7 +23,9 @@ public class QuickUI : MonoBehaviour
     [ContextMenu("Force Refresh")]
     public void RefreshControls()
     {
-        if (SceneControls != null) {
+        var shouldRefresh = RefreshControlsOnAwake || !Application.isPlaying;
+        
+        if (SceneControls != null && shouldRefresh) {
             foreach (var control in SceneControls) {
                 if (control != null && control.gameObject != null) {
                     if(Application.isPlaying) Destroy(control.gameObject);
@@ -31,10 +34,10 @@ public class QuickUI : MonoBehaviour
             }
         }
 
-        CreateControls();
+        CreateControls(shouldRefresh);
     }
 
-    public void CreateControls()
+    public void CreateControls(bool createObjects = true)
     {
         var controlList = new List<QuickUiSceneControl>();
         if (ControlParent == null) ControlParent = GetComponent<RectTransform>();
@@ -43,22 +46,23 @@ public class QuickUI : MonoBehaviour
             if (control.HideControl) continue;
             control.Initialize();
             if (control.TargetMember.Type.IsEnum) {
-                AddEnumControl(ref controlList, control);
+                AddEnumControl(ref controlList, control, !createObjects);
                 
                 continue;
             }
             switch (control.TargetMember.Type.Name) {
                 case "Single":
-                    AddSliderControl(ref controlList, control);
+                case "Int32":
+                    AddSliderControl(ref controlList, control, !createObjects);
                     break;
                 case "Vector3":
-                    AddVector3Control(ref controlList, control);
+                    AddVector3Control(ref controlList, control, !createObjects);
                     break;
                 case "Boolean":
-                    AddBooleanControl(ref controlList, control);
+                    AddBooleanControl(ref controlList, control, !createObjects);
                     break;
                 case "Void" :
-                    AddButtonControl(ref controlList, control);
+                    AddButtonControl(ref controlList, control, !createObjects);
                     break;
                 default:
                     Debug.LogError("QuickUI does not support type " + control.TargetMember.Type.Name + " for member " + control.TargetMember.Name);
@@ -76,32 +80,32 @@ public class QuickUI : MonoBehaviour
         }
     }
 
-    private void AddSliderControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control)
+    private void AddSliderControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
     {
-        AddControl<QuickUiSlider>(ref controlList, "QuickUiSlider", control);
+        AddControl<QuickUiSlider>(ref controlList, "QuickUiSlider", control, alreadyExists);
     }
     
-    private void AddVector3Control(ref List<QuickUiSceneControl> controlList, QuickUiControl control)
+    private void AddVector3Control(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
     {
-        AddControl<QuickUiVector3>(ref controlList, "QuickUiVector3", control);
+        AddControl<QuickUiVector3>(ref controlList, "QuickUiVector3", control, alreadyExists);
     }
 
-    private void AddEnumControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control)
+    private void AddEnumControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
     {
-        AddControl<QuickUiDropdown>(ref controlList, "QuickUiDropdown", control);
+        AddControl<QuickUiDropdown>(ref controlList, "QuickUiDropdown", control, alreadyExists);
     }
     
-    private void AddBooleanControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control)
+    private void AddBooleanControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
     {
-        AddControl<QuickUiToggle>(ref controlList, "QuickUiToggle", control);
+        AddControl<QuickUiToggle>(ref controlList, "QuickUiToggle", control, alreadyExists);
     }
 
-    private void AddButtonControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control)
+    private void AddButtonControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
     {
-        AddControl<QuickUiButton>(ref controlList, "QuickUiButton", control);
+        AddControl<QuickUiButton>(ref controlList, "QuickUiButton", control, alreadyExists);
     }
 
-    private void AddControl<T>(ref List<QuickUiSceneControl> controlList, string prefabName, QuickUiControl control) where T : QuickUiSceneControl
+    private void AddControl<T>(ref List<QuickUiSceneControl> controlList, string prefabName, QuickUiControl control, bool alreadyExists = false) where T : QuickUiSceneControl
     {
         var attributes = control.TargetMember.GetAttributes();
         CustomAttributeData space = null;
@@ -115,32 +119,39 @@ public class QuickUI : MonoBehaviour
             }
         }
 
-        if (space != null) {
+        if (space != null && !alreadyExists) {
             AddSpace(ref controlList, "QuickUiSpace", (float)space.ConstructorArguments[0].Value);
         }
 
-        if (header != null) {
+        if (header != null && !alreadyExists) {
             AddHeader(ref controlList, "QuickUiHeader", (string)header.ConstructorArguments[0].Value);
         }
+
+        if (alreadyExists) {
+            //note - this will break if multiple members have the same name...
+            var sceneControl = transform.Find(control.TargetMemberName).GetComponent<T>();
+            sceneControl.Initialize(control);
+            controlList.Add(sceneControl);
+        } else {
+#if UNITY_EDITOR
+            var newObj = PrefabUtility.InstantiatePrefab(Resources.Load(prefabName)) as GameObject;
+#else
+            var newObj = Instantiate(Resources.Load(prefabName)) as GameObject;
+#endif
         
-        #if UNITY_EDITOR
-        var newObj = PrefabUtility.InstantiatePrefab(Resources.Load(prefabName)) as GameObject;
-        #else
-        var newObj = Instantiate(Resources.Load(prefabName)) as GameObject;
-        #endif
-        
-        if (newObj == null) {
-            Debug.LogError("Failed to instantiate QuickUi object " + prefabName);
-            return;
+            if (newObj == null) {
+                Debug.LogError("Failed to instantiate QuickUi object " + prefabName);
+                return;
+            }
+
+            ((RectTransform) newObj.transform).SetParentNeutral(ControlParent);
+            newObj.name = control.TargetMemberName;
+
+            var sceneControl = newObj.AddComponent<T>();
+            sceneControl.Initialize(control);
+
+            controlList.Add(sceneControl);   
         }
-        newObj.transform.SetParent(ControlParent);
-        newObj.transform.localScale = Vector3.one;
-        newObj.name = control.TargetMemberName;
-
-        var sceneControl = newObj.AddComponent<T>();
-        sceneControl.Initialize(control);
-
-        controlList.Add(sceneControl);
     }
 
     private void AddSpace(ref List<QuickUiSceneControl> controlList, string prefabName, float height)
@@ -150,8 +161,7 @@ public class QuickUI : MonoBehaviour
             Debug.LogError("Failed to instantiate QuickUi object " + prefabName);
             return;
         }
-        newObj.transform.SetParent(ControlParent);
-        newObj.transform.localScale = Vector3.one;
+        ((RectTransform) newObj.transform).SetParentNeutral(ControlParent);
 
         var sceneControl = newObj.AddComponent<QuickUiSpace>();
         sceneControl.Initialize(height * 2f);
@@ -166,8 +176,7 @@ public class QuickUI : MonoBehaviour
             Debug.LogError("Failed to instantiate QuickUi object " + prefabName);
             return;
         }
-        newObj.transform.SetParent(ControlParent);
-        newObj.transform.localScale = Vector3.one;
+        ((RectTransform) newObj.transform).SetParentNeutral(ControlParent);
 
         var sceneControl = newObj.AddComponent<QuickUiHeader>();
         sceneControl.Initialize(text);

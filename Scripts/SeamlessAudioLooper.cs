@@ -61,14 +61,14 @@ public class SeamlessAudioLooper : MonoBehaviour
     public void Initialize()
     {
         _a.spatialBlend = SpatialBlend;
-        _a.outputAudioMixerGroup = MixerGroup;
+        if(MixerGroup != null) _a.outputAudioMixerGroup = MixerGroup;
         _a.clip = Clip;
         _a.playOnAwake = false;
         _a.priority = Priority;
         _a.gameObject.SetActive(true);
         
         _b.spatialBlend = SpatialBlend;
-        _b.outputAudioMixerGroup = MixerGroup;
+        if(MixerGroup != null) _b.outputAudioMixerGroup = MixerGroup;
         _b.clip = Clip;
         _b.playOnAwake = false;
         _b.priority = Priority;
