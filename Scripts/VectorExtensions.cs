@@ -180,6 +180,13 @@ namespace Lunity
             return new Vector3(v.x, v.y, v.z);
         }
 
+        public static bool IsInsideCollider(this Vector3 v, Collider collider)
+        {
+            if (!collider) return false;
+            var closest = collider.ClosestPoint(v);
+            return closest == v;
+        }
+        
         //==============================================================================================================
         //==============================================================================================================
         //==                                        VECTOR 4 EXTENSIONS                                               ==
