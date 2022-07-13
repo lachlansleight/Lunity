@@ -11,6 +11,7 @@ namespace Lunity
         public AudioClip[] Clips;
 
         [Header("Settings")]
+        public int MaxSimultaneousPlaybacks = 10;
         public bool RandomizeOrder;
         [Space(10)]
         public float VolumeCenter = 1f;
@@ -22,14 +23,26 @@ namespace Lunity
         [Range(0f, 1f)] public float PitchRandomizeAmount = 0.05f;
 
         private List<AudioClip> _queue;
-        private AudioSource _audioSource;
+        private AudioSource[] _audioSources;
+        private AudioSource _lastPlayedSource;
 
         public void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
-            if (_audioSource == null) {
-                _audioSource = GetComponentInChildren<AudioSource>();
+            var mySource = GetComponent<AudioSource>();
+            _audioSources = new AudioSource[MaxSimultaneousPlaybacks];
+            for (var i = 0; i < _audioSources.Length; i++) {
+                var newObj = new GameObject("Source_" + i);
+                newObj.transform.parent = transform;
+                
+                var newSource = newObj.AddComponent<AudioSource>();
+                newSource.outputAudioMixerGroup = mySource.outputAudioMixerGroup;
+                newSource.playOnAwake = false;
+                newSource.loop = false;
+                newSource.priority = mySource.priority;
+                newSource.spatialBlend = mySource.spatialBlend;
+                _audioSources[i] = newSource;
             }
+            Destroy(mySource);
 
             _queue = new List<AudioClip>();
         }
@@ -60,26 +73,42 @@ namespace Lunity
         public void Play()
         {
             var clip = NextClip();
-            _audioSource.clip = clip;
-            _audioSource.pitch = PitchCenter + (RandomizePitch 
+            var source = GetNextAvailableSource();
+            source.clip = clip;
+            source.pitch = PitchCenter + (RandomizePitch 
                 ? Random.Range(-PitchRandomizeAmount, PitchRandomizeAmount) 
                 : 0f);
-            _audioSource.volume = VolumeCenter + (RandomizeVolume 
+            source.volume = VolumeCenter + (RandomizeVolume 
                 ? Random.Range(-VolumeRandomizeAmount, VolumeRandomizeAmount) 
                 : 0f);
-            _audioSource.Play();
+            source.Play();
+            _lastPlayedSource = source;
         }
 
         public void Stop()
         {
-            _audioSource.Stop();
+            _lastPlayedSource.Stop();
+        }
+
+        public void StopAll()
+        {
+            foreach (var s in _audioSources) s.Stop();
         }
 
         public void SetVolume(float volume)
         {
-            _audioSource.volume = volume;
+            _lastPlayedSource.volume = volume;
         }
 
-        public float Volume => _audioSource.volume;
+        public float Volume => _lastPlayedSource.volume;
+
+        private AudioSource GetNextAvailableSource()
+        {
+            foreach (var source in _audioSources) {
+                if (!source.isPlaying) return source;
+            }
+
+            return _audioSources[0];
+        }
     }
 }
