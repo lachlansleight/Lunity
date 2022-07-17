@@ -39,5 +39,11 @@ namespace Lunity
             return field;
         }
         #endif
+
+        /// Returns true if the provided layer is part of the layer mask, false otherwise
+        public static bool MaskContainsLayer(LayerMask mask, int layer)
+        {
+            return mask == (mask | (1 << layer));
+        }
     }
 }
