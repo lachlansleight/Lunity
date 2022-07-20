@@ -73,5 +73,11 @@ namespace Lunity
 		{
 			return Random.value < 0.5f;
 		}
+
+		/// Returns a random position inside a cylinder with a set radius and height (with base at y = 0)
+		public static Vector3 InsideCylinder(float radius, float height)
+		{
+			return (Random.insideUnitCircle * radius).To3DXZ() + Vector3.up * height * Random.value;
+		}
 	}
 }
