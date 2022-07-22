@@ -64,6 +64,11 @@ namespace Lunity
             return new Vector3(x, v.y, v.x);
         }
 
+        public static Vector2 Swizzle(this Vector2 v, int x, int y)
+        {
+            return new Vector2(v[x], v[y]);
+        }
+
         public static Vector2 ScaleInPlace(this Vector2 v, Vector2 scale)
         {
             return new Vector2(v.x * scale.x, v.y * scale.y);
@@ -160,6 +165,16 @@ namespace Lunity
         {
             return new Vector2(v.y, v.z);
         }
+        
+        public static Vector2 Swizzle(this Vector3 v, int x, int y)
+        {
+            return new Vector2(v[x], v[y]);
+        }
+        
+        public static Vector3 Swizzle(this Vector3 v, int x, int y, int z)
+        {
+            return new Vector3(v[x], v[y], v[z]);
+        }
 
         public static Vector3 ScaleInPlace(this Vector3 v, Vector3 scale)
         {
@@ -249,16 +264,32 @@ namespace Lunity
             v = u;
         }
 
-        public static Vector3 To3D(this Vector4 v, int indexA, int indexB, int indexC)
+        public static Vector2 Swizzle(this Vector4 v, int x, int y)
         {
-            return new Vector3(v[indexA], v[indexB], v[indexC]);
-        }
-
-        public static Vector2 To2D(this Vector4 v, int indexA, int indexB)
-        {
-            return new Vector2(v[indexA], v[indexB]);
+            return new Vector2(v[x], v[y]);
         }
         
+        public static Vector3 Swizzle(this Vector4 v, int x, int y, int z)
+        {
+            return new Vector3(v[x], v[y], v[z]);
+        }
+        
+        public static Vector4 Swizzle(this Vector4 v, int x, int y, int z, int w)
+        {
+            return new Vector4(v[x], v[y], v[z], v[w]);
+        }
+
+        public static Vector2 To2DXY(this Vector4 v) => new Vector2(v.x, v.y);
+        public static Vector2 To2DXZ(this Vector4 v) => new Vector2(v.x, v.z);
+        public static Vector2 To2DXW(this Vector4 v) => new Vector2(v.x, v.w);
+        public static Vector2 To2DYZ(this Vector4 v) => new Vector2(v.y, v.z);
+        public static Vector2 To2DYW(this Vector4 v) => new Vector2(v.y, v.w);
+        public static Vector2 To2DZW(this Vector4 v) => new Vector2(v.z, v.w);
+        public static Vector3 To3DXYZ(this Vector4 v) => new Vector3(v.x, v.y, v.z);
+        public static Vector3 To3DXYW(this Vector4 v) => new Vector3(v.x, v.y, v.w);
+        public static Vector3 To3DXZW(this Vector4 v) => new Vector3(v.x, v.z, v.w);
+        public static Vector3 To3DYZW(this Vector4 v) => new Vector3(v.y, v.z, v.w);
+
         public static Vector4 ApplyScale(this Vector4 v, float x, float y, float z, float w)
         {
             return new Vector4(v.x * x, v.y * y, v.z * z, v.w * w);

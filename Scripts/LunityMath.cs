@@ -3,22 +3,46 @@ using UnityEngine;
 public class LunityMath
 {
 	//from https://blog.dakwamine.fr/?p=1943
-	public static bool Get2DIntersection(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 v2, out Vector2 point)
+	/// Returns the intersection between two infinite lines, each defined by two points (if one exists)
+	public static bool Get2DIntersection(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 point)
 	{
-		var tmp = (v2.x - b1.x) * (a2.y - a1.y) - (v2.y - b1.y) * (a2.x - a1.x);
+		var tmp = (b2.x - b1.x) * (a2.y - a1.y) - (b2.y - b1.y) * (a2.x - a1.x);
 
 		if (tmp == 0) {
 			// No solution!
-			point = Vector3.zero;
+			point = Vector2.zero;
 			return false;
 		}
  
 		var mu = ((a1.x - b1.x) * (a2.y - a1.y) - (a1.y - b1.y) * (a2.x - a1.x)) / tmp;
  
 		point = new Vector2(
-			b1.x + (v2.x - b1.x) * mu,
-			b1.y + (v2.y - b1.y) * mu
+			b1.x + (b2.x - b1.x) * mu,
+			b1.y + (b2.y - b1.y) * mu
 		);
+		return true;
+	}
+	
+	/// Returns the intersection between two discrete lines, each defined by two points
+	public static bool Get2DIntersectionBounded(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 point)
+	{
+		point = Vector2.zero;
+		
+		var doIntersect = Get2DIntersection(a1, a2, b1, b2, out var p);
+		if (!doIntersect) {
+			return false;
+		}
+
+		var interpAx = (p.x - a1.x) / (a2.x - a1.x);
+		if (interpAx < 0 || interpAx > 1) return false;
+		var interpAy = (p.y - a1.y) / (a2.y - a1.y);
+		if (interpAy < 0 || interpAy > 1) return false;
+		var interpBx = (p.x - b1.x) / (b2.x - b1.x);
+		if (interpBx < 0 || interpBx > 1) return false;
+		var interpBy = (p.y - b1.y) / (b2.y - b1.y);
+		if (interpBy < 0 || interpBy > 1) return false;
+
+		point = p;
 		return true;
 	}
 
