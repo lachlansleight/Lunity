@@ -1,7 +1,8 @@
 {
     "name": "Lunity.Editor",
+    "rootNamespace": "",
     "references": [
-        "GUID:0881413c17aa2214dae0007a7c696632"
+        "Lunity"
     ],
     "includePlatforms": [
         "Editor"
