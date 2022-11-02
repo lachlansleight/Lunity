@@ -74,4 +74,16 @@ public class LunityMath
 	{
 		return Mathf.Lerp(toMin, toMax, Mathf.InverseLerp(fromMin, fromMax, t));
 	}
+
+	/// Returns the result of a cubic bezier interpolation
+	public static Vector3 CubicBezier(float t, Vector3 start, Vector3 startHandle, Vector3 endHandle, Vector3 end)
+	{
+		var t3 = t * t * t;
+		var t2 = t * t;
+		var f0 = -t3 + 3f * t2 - 3f * t + 1f;
+		var f1 = 3f * t3 - 6f * t2 + 3f * t;
+		var f2 = -3f * t3 + 3f * t2;
+		var f3 = t3;
+		return start * f0 + startHandle * f1 + endHandle * f2 + end * f3;
+	}
 }
