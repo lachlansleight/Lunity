@@ -1,10 +1,15 @@
 ﻿//adapted from NormalVR gradient skybox
 
-Shader "Lunity/Gradient Skybox" {
+Shader "Lunity/Gradient Skybox (Three Color)" {
 	Properties {
 		[Header(Gradient Colors)]
 		_ColorT ("Top Color", Color) = (1,1,1,1)
+		_ColorM ("Middle Color", Color) = (1,1,1,1)
 		_ColorB ("Bottom Color", Color) = (1,1,1,1)
+		
+		[Header(Gradient Settings)]
+		_ExponentT ("Upper Exponent", Float) = 1.0
+		_ExponentB ("Lower Exponent", Float) = 1.0
 		
 		[Header(Additional Settings)]
 		[Toggle(DITHER)] _Dither ("Add Screenspace Dither", Float) = 0
@@ -24,7 +29,10 @@ Shader "Lunity/Gradient Skybox" {
 			#include "UnityCG.cginc"
 
 			fixed3 _ColorT;
+			fixed3 _ColorM;
 			fixed3 _ColorB;
+			half _ExponentT;
+			half _ExponentB;
 	
 			#ifdef DITHER
 			float3 ScreenSpaceDither(float2 screenpos)
@@ -54,8 +62,12 @@ Shader "Lunity/Gradient Skybox" {
 			
 			fixed4 frag (Varyings i) : SV_Target {
 				float3 n = normalize(i.texcoord);
-
-				fixed3 color = lerp(_ColorB, _ColorT, saturate(n.y * 0.5 + 0.5));
+			
+				float factorT = 1.0 - pow(min(1.0, 1.0 - n.y), _ExponentT);
+				float factorB = 1.0 - pow(min(1.0, 1.0 + n.y), _ExponentB);
+				float factorM = 1.0 - factorT - factorB;
+				
+				fixed3 color = (_ColorT * factorT + _ColorM * factorM + _ColorB * factorB);
 				
 				#if DITHER
 				color += ScreenSpaceDither(i.vertex.xy);
