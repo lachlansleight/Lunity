@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 namespace Lunity
 {
-    public class SceneLoader : MonoBehaviour
+    public class SceneLoader
     {
-        public void LoadScene(string sceneName)
+        public static void LoadScene(string sceneName)
         {
             SceneManager.LoadScene(sceneName);
         }
 
-        public void LoadScene(int sceneIndex)
+        public static void LoadScene(int sceneIndex)
         {
             SceneManager.LoadScene(sceneIndex);
         }
 
-        public void ReloadCurrentScene()
+        public static void ReloadCurrentScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

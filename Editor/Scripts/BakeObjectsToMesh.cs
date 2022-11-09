@@ -101,31 +101,6 @@ namespace Lunity
 
             return path;
         }
-
-        [MenuItem("Lunity/Delete Rock or Water Covered Objects in Children")]
-        public static void Temp()
-        {
-            var objects = new List<GameObject>();
-            for (var i = 0; i < Selection.gameObjects[0].transform.childCount; i++) {
-                objects.Add(Selection.gameObjects[0].transform.GetChild(i).gameObject);
-            }
-
-            Undo.RecordObject(Selection.gameObjects[0], "Deleted rock-covered objects");
-            foreach (var obj in objects) {
-                var ray = new Ray(obj.transform.position + Vector3.up * 100f, Vector3.down);
-                if (Physics.Raycast(ray, out var hit, 200f,  -1)) {
-                    var layerName = LayerMask.LayerToName(hit.collider.gameObject.layer);
-                    if (layerName == "Rocks" || layerName == "Water") {
-                        Debug.DrawLine(ray.origin, obj.transform.position, Color.red, 10f);
-                        Object.DestroyImmediate(obj);
-                    } else {
-                        //Debug.DrawLine(hit.point, hit.point + Vector3.up * 200f, Color.green, 10f);
-                    }
-                } else {
-                    //Debug.DrawLine(obj.transform.position + Vector3.up * 100f, obj.transform.position, Color.red, 10f);
-                }
-            }
-        }
     }
     #endif
 }

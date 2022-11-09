@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RootCanvas : SimpleSingleton<RootCanvas>
 {
-    public static Canvas Find
+    public static Canvas main
     {
         get
         {
