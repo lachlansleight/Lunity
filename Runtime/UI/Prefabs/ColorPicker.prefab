@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -133,6 +135,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -206,6 +210,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -230,8 +236,8 @@ GameObject:
   - component: {fileID: 6423250515443208053}
   - component: {fileID: 6423250515443208049}
   - component: {fileID: 6423250515443208048}
-  - component: {fileID: 6423250515443208055}
   - component: {fileID: 6423250515443208054}
+  - component: {fileID: 6977595024552477137}
   m_Layer: 5
   m_Name: ColorPicker
   m_TagString: Untagged
@@ -285,6 +291,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.245105, g: 0.33962262, b: 0.28518552, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -298,22 +306,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6423250515443208055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6423250515443208052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee6198d0eb9bc294e93c636e5282c3e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PopupRectTransform: {fileID: 0}
-  OnColorChange:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &6423250515443208054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -355,6 +348,22 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6423250515443208048}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6977595024552477137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423250515443208052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1361cf77a859cd04ea785469bf3191ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupRectTransform: {fileID: 0}
+  OnColorChange:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &6423250515949391736
@@ -417,6 +426,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

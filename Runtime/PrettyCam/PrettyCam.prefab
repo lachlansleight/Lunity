@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4425195362094674330}
   - component: {fileID: 3850742427113083855}
-  - component: {fileID: 3643323103156569402}
+  - component: {fileID: 5226472213043502075}
   m_Layer: 0
   m_Name: PrettyCam
   m_TagString: Untagged
@@ -75,7 +75,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &3643323103156569402
+--- !u!114 &5226472213043502075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,12 +84,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4760480329002573153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca2183963f5285a49b1527d03ecf6f57, type: 3}
+  m_Script: {fileID: 11500000, guid: bfcfe2c43f08b4f4dbd70d0dd1137dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  TargetCamera: {fileID: 0}
   DisableRoll: 1
   ApplySmoothing: 1
   LerpSpeed: 8
-  AllowKeyboardToggle: 1
+  JumpThreshold: 1
+  AllowKeyboardToggle: 0
   ToggleKey: 19

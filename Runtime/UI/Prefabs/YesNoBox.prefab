@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 330084468008651048}
-  - component: {fileID: 7286884158140656017}
+  - component: {fileID: 1440644127128913398}
   m_Layer: 5
   m_Name: YesNoBox
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: -0.00000095367, y: 52.700012}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7286884158140656017
+--- !u!114 &1440644127128913398
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,9 +47,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2848140215628726736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de27fdafa52290f4e893b9279b1e8cad, type: 3}
+  m_Script: {fileID: 11500000, guid: eb17a663ac48a52459283261c2956a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ValueOnAwake: 0
 --- !u!1 &3967900175636060060
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,10 +111,12 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.6320754, g: 0.21168566, b: 0.21168566, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 710a8512ebc9ffd45aad5f05b555a43e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de008d11bde679a46a52560a08bca73d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -183,10 +186,12 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.25576866, g: 0.7264151, b: 0.17475079, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 699fea7c27ea31a45a5c933ec0ad68b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e97238f3b2a8da4a9d02d9149717751, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

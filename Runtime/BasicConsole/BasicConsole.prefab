@@ -242,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2566950357788988968}
-  - component: {fileID: 2566950357788988974}
+  - component: {fileID: 2980419580144732316}
   m_Layer: 5
   m_Name: BasicConsole
   m_TagString: Untagged
@@ -272,7 +272,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2566950357788988974
+--- !u!114 &2980419580144732316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2566950357788988969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d3210cd5bc3aa144939b0e3b7974324, type: 3}
+  m_Script: {fileID: 11500000, guid: 168f0d59edc371545bb3a7a0f18d164d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OutputText: {fileID: 2566950358600353408}
@@ -290,6 +290,9 @@ MonoBehaviour:
   KeyToToggle: 0
   StartOn: 1
   ToggleKey: 96
+  ToggleRequiresShift: 0
+  ToggleRequiresCtrl: 0
+  ToggleRequiresAlt: 0
   BindToUnityConsole: 0
 --- !u!1 &2566950358600353410
 GameObject:
