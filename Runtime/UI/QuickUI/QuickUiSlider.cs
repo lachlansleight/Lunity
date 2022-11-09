@@ -25,6 +25,9 @@ public class QuickUiSlider : QuickUiSceneControl
         var hasRange = false;
         var attributes = control.TargetMember.GetAttributes();
         foreach (var attribute in attributes) {
+            if (attribute.AttributeType == typeof(MinAttribute)) {
+                Debug.LogWarning($"MinAttribute (on control {_label}) is not supported by QuickUI and will be ignored");
+            }
             if (attribute.AttributeType != typeof(RangeAttribute)) continue;
             
             if (control.TargetMember.Type == typeof(int)) _slider.wholeNumbers = true;

@@ -61,6 +61,9 @@ public class QuickUI : MonoBehaviour
                 case "Boolean":
                     AddBooleanControl(ref controlList, control, !createObjects);
                     break;
+                case "String":
+                    AddTextboxControl(ref controlList, control, !createObjects);
+                    break;
                 case "Void" :
                     AddButtonControl(ref controlList, control, !createObjects);
                     break;
@@ -98,6 +101,11 @@ public class QuickUI : MonoBehaviour
     private void AddBooleanControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
     {
         AddControl<QuickUiToggle>(ref controlList, "QuickUiToggle", control, alreadyExists);
+    }
+    
+    private void AddTextboxControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
+    {
+        AddControl<QuickUiTextbox>(ref controlList, "QuickUiTextbox", control, alreadyExists);
     }
 
     private void AddButtonControl(ref List<QuickUiSceneControl> controlList, QuickUiControl control, bool alreadyExists = false)
@@ -164,7 +172,7 @@ public class QuickUI : MonoBehaviour
         ((RectTransform) newObj.transform).SetParentNeutral(ControlParent);
 
         var sceneControl = newObj.AddComponent<QuickUiSpace>();
-        sceneControl.Initialize(height * 2f);
+        sceneControl.Initialize(height);
         
         controlList.Add(sceneControl);
     }
