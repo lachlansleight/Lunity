@@ -10,6 +10,8 @@ namespace Lunity
 		public int min;
 		public int max;
 		public int range => max - min;
+		public float center => min + (max - min) * 0.5f;
+		public float centerInt => Mathf.RoundToInt(center);
 
 		public MinMaxRangeInt(int min, int max)
 		{

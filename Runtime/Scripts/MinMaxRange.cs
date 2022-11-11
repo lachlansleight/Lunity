@@ -10,6 +10,7 @@ namespace Lunity
         public float min;
         public float max;
         public float range => max - min;
+        public float center => min + (max - min) * 0.5f;
 
         public MinMaxRange(float min, float max)
         {
