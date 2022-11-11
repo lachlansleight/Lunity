@@ -1,6 +1,6 @@
 {
   "name": "com.lachlansleight.lunity",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "A collection of useful extensions, tools and assets I find myself needing across many of my projects",
   "displayName": "Lunity",
   "unity": "2017.1",
