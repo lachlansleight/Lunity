@@ -42,7 +42,7 @@ Many, many very handy extension methods.
 
 -  BoxColliderExtensions: `ContainsPoint` - whether the provided Vector3 is inside the box
 -  ColorExtensions: `SetAlpha` - creates a new color from the source color with the specified alpha, `CreateGradient` - creates a gradient with two, three or four stops
--  DebugExtensions: Various log functions that let you provide optional colors and 'contexts' which appear as bold prefixes followed by a colon, `DrawBounds` which draws a box made out of lines, `DrawWorldLine` which is like DrawLine but it appears in the build (useful for VR), `LogObject` for logging arbitrary data formatted as a JSON string
+-  DebugExtensions: Various log functions that let you provide optional colors and 'contexts' which appear as bold prefixes followed by a colon, `DrawBounds` which draws a box made out of lines, `DrawLocalLine` which lets you pass in a transform space for Debug.DrawLine, `DrawWorldLine` which is like DrawLine but it appears in the scene as actual geometry (useful for VR), `LogObject` for logging arbitrary data formatted as a JSON string
 -  LayerMaskExtensions: Check whether the provided mask contains the provided layer, and a way to turn an int into a layer mask and vice versa (which I remember needing for...some reason)
 -  MiscExtensions: Lets you do this: `gameObject.AddComponent<any monobehaviour type>(someOtherObject.GetComponent<that same monobehaviour type>);` to add a copy of a source object's component to any other game object.
 -  ParticleSystemExtensions: Has a simple SetRate method because I despise the new module-based script interface and I have to set particle system rates all the time

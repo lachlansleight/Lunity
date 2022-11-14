@@ -127,6 +127,30 @@ namespace Lunity
 			}
 		}
 
+		/// Wraps Debug.DrawLine, but draws relative to the provided transform
+		public static void DrawLocalLine(Vector3 start, Vector3 end, Transform relativeTo)
+		{
+			Debug.DrawLine(relativeTo.TransformPoint(start), relativeTo.TransformPoint(end));
+		}
+		
+		/// Wraps Debug.DrawLine, but draws relative to the provided transform
+		public static void DrawLocalLine(Vector3 start, Vector3 end, Color color, Transform relativeTo)
+		{
+			Debug.DrawLine(relativeTo.TransformPoint(start), relativeTo.TransformPoint(end), color);
+		}
+		
+		/// Wraps Debug.DrawLine, but draws relative to the provided transform
+		public static void DrawLocalLine(Vector3 start, Vector3 end, Color color, float duration, Transform relativeTo)
+		{
+			Debug.DrawLine(relativeTo.TransformPoint(start), relativeTo.TransformPoint(end), color, duration);
+		}
+		
+		/// Wraps Debug.DrawLine, but draws relative to the provided transform
+		public static void DrawLocalLine(Vector3 start, Vector3 end, Color color, float duration, bool depthTest, Transform relativeTo)
+		{
+			Debug.DrawLine(relativeTo.TransformPoint(start), relativeTo.TransformPoint(end), color, duration, depthTest);
+		}
+
 		private static Shader _unlitShader;
 		private static Mesh _cylinderMesh;
 		public static void DrawWorldLine(Vector3 start, Vector3 end)
