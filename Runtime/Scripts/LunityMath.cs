@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class LunityMath
 {
+	
+	// Why is there no TWOPI in Unity :/
+	public const float TAU = 6.283185307179586476925286766559f;
+	public const float TWOPI = 6.283185307179586476925286766559f;
+	
 	//from https://blog.dakwamine.fr/?p=1943
 	/// Returns the intersection between two infinite lines, each defined by two points (if one exists)
 	public static bool Get2DIntersection(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2, out Vector2 point)
