@@ -10,6 +10,7 @@ using UnityEditor;
 public class QuickUI : MonoBehaviour
 {
     public bool RefreshControlsOnAwake = true;
+    [Tooltip("Only has an effect if RefreshControlsOnAwake is false")] public bool RefreshControlsOnStart = false;
     public RectTransform ControlParent;
     public QuickUiControl[] Controls;
 
@@ -17,15 +18,23 @@ public class QuickUI : MonoBehaviour
 
     public void Awake()
     {
+        if(RefreshControlsOnAwake) RefreshControls();
+    }
+
+    public void Start()
+    {
+        if (RefreshControlsOnStart && !RefreshControlsOnAwake) RefreshControls();
+    }
+    
+    public void ForceRefreshControls()
+    {
         RefreshControls();
     }
 
     [ContextMenu("Force Refresh")]
     public void RefreshControls()
     {
-        var shouldRefresh = RefreshControlsOnAwake || !Application.isPlaying;
-        
-        if (SceneControls != null && shouldRefresh) {
+        if (SceneControls != null) {
             foreach (var control in SceneControls) {
                 if (control != null && control.gameObject != null) {
                     if(Application.isPlaying) Destroy(control.gameObject);
@@ -34,7 +43,7 @@ public class QuickUI : MonoBehaviour
             }
         }
 
-        CreateControls(shouldRefresh);
+        CreateControls(true);
     }
 
     public void CreateControls(bool createObjects = true)
@@ -76,6 +85,7 @@ public class QuickUI : MonoBehaviour
         SceneControls = controlList.ToArray();
     }
 
+    [ContextMenu("Refresh Values")]
     public void RefreshValues()
     {
         foreach (var control in SceneControls) {

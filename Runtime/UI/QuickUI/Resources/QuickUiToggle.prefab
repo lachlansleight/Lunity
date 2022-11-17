@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 699fea7c27ea31a45a5c933ec0ad68b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e97238f3b2a8da4a9d02d9149717751, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6346597668208978619, guid: fb657dcd2d7a59746bb27c44b385ea89, type: 3}
       propertyPath: m_Name
-      value: QuickUiBaseControl
+      value: QuickUiToggle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb657dcd2d7a59746bb27c44b385ea89, type: 3}
