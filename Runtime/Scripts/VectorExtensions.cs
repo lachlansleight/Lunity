@@ -86,6 +86,16 @@ namespace Lunity
         {
             return new Vector2(v.x, v.y);
         }
+        
+        /// Ensures the euler angles are in the range -180 - 180 degrees
+        public static Vector2 NormalizeEulers(this Vector2 v)
+        {
+            while (v.x < -180f) v.x += 360f;
+            while (v.x > 180f) v.x -= 360f;
+            while (v.y < -180f) v.y += 360f;
+            while (v.y > 180f) v.y -= 360f;
+            return v;
+        }
 
 
         //==============================================================================================================
@@ -200,6 +210,18 @@ namespace Lunity
             if (!collider) return false;
             var closest = collider.ClosestPoint(v);
             return closest == v;
+        }
+
+        /// Ensures the euler angles are in the range -180 - 180 degrees
+        public static Vector3 NormalizeEulers(this Vector3 v)
+        {
+            while (v.x < -180f) v.x += 360f;
+            while (v.x > 180f) v.x -= 360f;
+            while (v.y < -180f) v.y += 360f;
+            while (v.y > 180f) v.y -= 360f;
+            while (v.z < -180f) v.z += 360f;
+            while (v.z > 180f) v.z -= 360f;
+            return v;
         }
         
         //==============================================================================================================
