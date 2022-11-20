@@ -72,6 +72,16 @@ namespace Lunity
 		{
 			DrawBounds(center, size, Color.white);
 		}
+
+		public static void DrawBounds(Vector3 center, float size)
+		{
+			DrawBounds(center, Vector3.one * size);
+		}
+
+		public static void DrawBounds(Vector3 center, float size, Color color, float duration = 0f)
+		{
+			DrawBounds(center, size * Vector3.one, color, duration);
+		}
 		
 		public static void DrawBounds(Vector3 center, Vector3 size, Color color, float duration = 0f)
 		{
