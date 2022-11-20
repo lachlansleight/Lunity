@@ -138,11 +138,26 @@ public class QuickUI : MonoBehaviour
         }
 
         if (space != null && !alreadyExists) {
+#if UNITY_EDITOR
             AddSpace(ref controlList, "QuickUiSpace", (float)space.ConstructorArguments[0].Value);
+#elif UNITY_IOS
+            Debug.LogWarning("Attribute constructor arguments are not supported on iOS (required for QuickUiSpace)");
+            AddSpace(ref controlList, "QuickUiSpace", 10);
+#else
+            AddSpace(ref controlList, "QuickUiSpace", (float)space.ConstructorArguments[0].Value);
+#endif
         }
 
         if (header != null && !alreadyExists) {
+            if (space != null && !alreadyExists) {
+#if UNITY_EDITOR
+                AddHeader(ref controlList, "QuickUiHeader", (string)header.ConstructorArguments[0].Value);
+#elif UNITY_IOS
+            Debug.LogWarning("Attribute constructor arguments are not supported on iOS (required for QuickUiHeader)");
+#else
             AddHeader(ref controlList, "QuickUiHeader", (string)header.ConstructorArguments[0].Value);
+#endif
+            }
         }
 
         if (alreadyExists) {

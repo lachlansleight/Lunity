@@ -31,6 +31,15 @@ public class QuickUiSlider : QuickUiSceneControl
             if (attribute.AttributeType != typeof(RangeAttribute)) continue;
             
             if (control.TargetMember.Type == typeof(int)) _slider.wholeNumbers = true;
+            
+#if UNITY_EDITOR
+            //no problem - in the editor it will work
+#elif UNITY_IOS
+            Debug.LogWarning("Attribute constructor arguments are not supported on iOS (required for creating a range slider)\nYou should create the slider in the editor (where QuickUI can read the attribute values)");
+            hasRange = true;
+            continue;
+#endif
+            
             _slider.minValue = (float)attribute.ConstructorArguments[0].Value;
             _slider.maxValue = (float)attribute.ConstructorArguments[1].Value;
             hasRange = true;
