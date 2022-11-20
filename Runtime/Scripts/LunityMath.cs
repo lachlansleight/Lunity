@@ -6,6 +6,8 @@ public class LunityMath
 	// Why is there no TWOPI in Unity :/
 	public const float TAU = 6.283185307179586476925286766559f;
 	public const float TWOPI = 6.283185307179586476925286766559f;
+	public const float PHI = 1.6180339887498948482045868343656f;
+	public const float GOLDENRATIO = 1.6180339887498948482045868343656f;
 	
 	//from https://blog.dakwamine.fr/?p=1943
 	/// Returns the intersection between two infinite lines, each defined by two points (if one exists)
@@ -90,5 +92,71 @@ public class LunityMath
 		var f2 = -3f * t3 + 3f * t2;
 		var f3 = t3;
 		return start * f0 + startHandle * f1 + endHandle * f2 + end * f3;
+	}
+	
+	/// Get evenly-distributed points in a circle
+	// sunflower distribution, from https://stackoverflow.com/questions/28567166/uniformly-distribute-x-points-inside-a-circle
+	public static Vector2[] GetDistributedCirclePoints(int count, float radius, float boundaryEvenness = 0f, bool geodesic = false)
+	{
+		var points = new Vector2[count];
+
+		var angleStride = geodesic ? 360f * GOLDENRATIO : TWOPI / (PHI * PHI);
+		//angleStride *= Mathf.Deg2Rad;
+		var boundaryPointCount = boundaryEvenness <= 0f ? 0 : Mathf.RoundToInt(boundaryEvenness * Mathf.Sqrt(count));
+
+		for (var i = 0; i < count; i++) {
+			var r = 1f;
+			if (i <= count - boundaryPointCount - 1) {
+				r = Mathf.Sqrt(i + 0.5f) / Mathf.Sqrt(count - boundaryPointCount + 1 / 2f);
+			}
+			var t = i * angleStride;
+			points[i] = r * radius * new Vector2(Mathf.Cos(t), Mathf.Sin(t));
+		}
+		
+		/*
+		var offset = 2f / count;
+		var increment = Mathf.PI * (3f - Mathf.Sqrt(5f));
+		for (var i = 0; i < count; i++)
+		{
+			var y = i * offset - 1f + (offset / 2f);
+			var r = Mathf.Sqrt(1f - y * y);
+			var phi = i * increment;
+			points[i] = new Vector2(Mathf.Cos(phi) * r, y) * radius;
+		}
+		*/
+
+		return points;
+	}
+	
+	/// Get evenly-distributed points in a circle - non-allocating
+	// sunflower distribution, from https://stackoverflow.com/questions/28567166/uniformly-distribute-x-points-inside-a-circle
+	public static void GetDistributedCirclePoints(ref Vector2[] points, float radius, float boundaryEvenness = 0f, bool geodesic = false)
+	{
+		/*
+		var n = points.Length;
+        
+		var offset = 2f / n;
+		var increment = Mathf.PI * (3f - Mathf.Sqrt(5f));
+		for (var i = 0; i < n; i++)
+		{
+			var y = i * offset - 1f + (offset / 2f);
+			var r = Mathf.Sqrt(1f - y * y);
+			var phi = i * increment;
+			points[i] = new Vector2(Mathf.Cos(phi) * r, y) * radius;
+		}
+		*/
+		var count = points.Length;
+		var angleStride = geodesic ? 360f * GOLDENRATIO : TWOPI / (PHI * PHI);
+		//angleStride *= Mathf.Deg2Rad;
+		var boundaryPointCount = boundaryEvenness <= 0f ? 0 : Mathf.RoundToInt(boundaryEvenness * Mathf.Sqrt(count));
+
+		for (var i = 0; i < count; i++) {
+			var r = 1f;
+			if (i <= count - boundaryPointCount - 1) {
+				r = Mathf.Sqrt(i + 0.5f) / Mathf.Sqrt(count - boundaryPointCount + 1 / 2f);
+			}
+			var t = i * angleStride;
+			points[i] = r * radius * new Vector2(Mathf.Cos(t), Mathf.Sin(t));
+		}
 	}
 }
