@@ -34,6 +34,7 @@ This is mostly what I use Lunity for. There's a ton of good shit in here.
 -  Singleton: A fancier, more reliable Singleton class.
 -  UiHeadFollower: A handy script to make a world space UI (or anything else, I suppose) smoothly position itself in front of the user's head. I mainly use this for VR when I need to show something important.
 -  UnityEvents: Various unity events with type payloads. Lets you do things like `public UnityEvent<float> OnFloatValueChanged` and get a useful inspector item.
+-  UsefulEnums: A few enums that I find myself often wanting. Things like `Direction.down`, `Surface.front`, `CardinalDirection.South`, `Axis.Z`, etc. Unity has lots of these inside random other namespaces which I've always found kind of frustrating. I'll probably add more to this as I find myself needing them.
 -  VectorDoubles: Replicants of all the default Vector types in Unity, but using double precision rather than float precision.
 
 ## Extension Scripts
