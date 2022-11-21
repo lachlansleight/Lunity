@@ -77,7 +77,7 @@ I try to keep these super minimal because I really want Lunity to stay really sm
 -    Useful extensions for inbuilt Unity meshes including a double-sided quad and a lower-poly spheres (the default sphere is almost 1000 polys!)
 -  Shaders: A nice gradient skybox (two or three color), a simple diffuse color for mobile, a simple outline shader, a simple vertex-color shader and the constantly useful UnlitTransparentTexture shaders (additive and blended) which are basically like the UnlitTexture shaders, but with tint color (I use these constantly for things like fading transparent objects out)
 -  Textures: Just some useful soft particle textures with various falloff percentage values
--  Sprites (within the UI folder): A handful of useful sprites that I use quite a lot. Borders, arrows, tabs, dots, shapes, etc.
+-  Sprites (within the UI folder): A handful of useful sprites that I use quite a lot. Borders, rounded rects, arrows, tabs, dots, shapes, etc.
 
 ## Modules
 
