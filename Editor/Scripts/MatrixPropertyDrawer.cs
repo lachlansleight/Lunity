@@ -5,7 +5,8 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(Matrix4x4))]
 public class MatrixPropertyDrawer : PropertyDrawer
 {
-    const float CELL_HEIGHT = 16;
+    const float CELL_HEIGHT = 18;
+    private const float CELL_PADDING = 2;
 
     Rect position;
     SerializedProperty property;
@@ -48,11 +49,16 @@ public class MatrixPropertyDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    {
+        return (CELL_HEIGHT + CELL_PADDING) * 4;
+    }
+
     void DrawCell(int column, int row)
     {
         Vector2 cellPos = position.position;
         cellPos.x += position.width * column / 4;
-        cellPos.y += CELL_HEIGHT * row;
+        cellPos.y += (CELL_HEIGHT + CELL_PADDING) * row;
         EditorGUI.PropertyField(
             new Rect(cellPos, new Vector2(position.width / 4, CELL_HEIGHT)),
             property.FindPropertyRelative("e" + row + column),
