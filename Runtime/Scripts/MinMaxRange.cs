@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 namespace Lunity
 {
     [Serializable]
-    public class MinMaxRange
+    public struct MinMaxRange
     {
         public float min;
         public float max;
