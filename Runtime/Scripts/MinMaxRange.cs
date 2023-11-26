@@ -54,6 +54,11 @@ namespace Lunity
         public static MinMaxRange Zero => new MinMaxRange(0f, 0f);
         public static MinMaxRange One = new MinMaxRange(0f, 1f);
 
+        public static MinMaxRange Lerp(MinMaxRange a, MinMaxRange b, float t)
+        {
+            return new MinMaxRange(Mathf.Lerp(a.min, b.min, t), Mathf.Lerp(a.max, b.max, t));
+        }
+
         public override string ToString()
         {
             return "(min: " + min + ", max: " + max + ")";
