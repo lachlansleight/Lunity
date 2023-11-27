@@ -28,9 +28,21 @@ namespace Lunity
             return Mathf.Lerp(min, max, t);
         }
 
+        public float LerpWithCenter(float t, float customCenter)
+        {
+            if (t < 0.5f) return Mathf.Lerp(min, customCenter, t * 2f);
+            return Mathf.Lerp(customCenter, max, (t - 0.5f) * 2f);
+        }
+
         public float InverseLerp(float value)
         {
             return Mathf.InverseLerp(min, max, value);
+        }
+
+        public float InverseLerpWithCenter(float value, float customCenter)
+        {
+            if (value < customCenter) return Mathf.InverseLerp(min, customCenter, value) * 0.5f;
+            return Mathf.InverseLerp(customCenter, max, value) * 0.5f + 0.5f;
         }
 
         public void ExpandToFit(float value)
