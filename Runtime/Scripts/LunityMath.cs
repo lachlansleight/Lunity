@@ -159,4 +159,32 @@ public class LunityMath
 			points[i] = r * radius * new Vector2(Mathf.Cos(t), Mathf.Sin(t));
 		}
 	}
+
+	/// Returns a vector where x = radius, y = theta and z = phi
+	public static Vector3 CartesianToSpherical(Vector3 cartesian)
+	{
+		return CartesianToSpherical(cartesian.x, cartesian.y, cartesian.z);
+	}
+	
+	/// Returns a vector where x = radius, y = theta and z = phi
+	public static Vector3 CartesianToSpherical(float x, float y, float z)
+	{
+		var xx = x * x;
+		var yy = y * y;
+		var zz = z * z;
+		return new Vector3(Mathf.Sqrt(xx + yy + zz), Mathf.Atan2(Mathf.Sqrt(xx + zz), y), Mathf.Atan2(x, z));
+	}
+
+	/// Returns a spherical-coordinate vector (where x = radius, y = theta and z = phi) back into a normal cartesian vector
+	public static Vector3 SphericalToCartesian(Vector3 spherical)
+	{
+		return SphericalToCartesian(spherical.x, spherical.y, spherical.z);
+	}
+	
+	// Converts a set of spherical coordinates to a cartesian vector
+	public static Vector3 SphericalToCartesian(float radius, float theta, float phi)
+	{
+		var sP = Mathf.Sin(phi);
+		return radius * new Vector3(Mathf.Sin(phi) * sP, Mathf.Cos(theta), Mathf.Cos(phi) * sP);
+	}
 }
