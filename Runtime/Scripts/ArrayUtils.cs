@@ -31,18 +31,18 @@ public static class ArrayUtils
 		return output;
 	}
 
-	public static T Find<T>(this T[] arr, T item)
+	public static T Find<T>(this T[] arr, Func<T, bool> searchFunction)
 	{
 		for (var i = 0; i < arr.Length; i++) {
-			if (arr[i].Equals(item)) return item;
+			if (searchFunction(arr[i])) return arr[i];
 		}
 		return default;
 	}
 
-	public static int FindIndex<T>(this T[] arr, T item)
+	public static int FindIndex<T>(this T[] arr, Func<T, bool> searchFunction)
 	{
 		for (var i = 0; i < arr.Length; i++) {
-			if (arr[i].Equals(item)) return i;
+			if (searchFunction(arr[i])) return i;
 		}
 		return -1;
 	}
