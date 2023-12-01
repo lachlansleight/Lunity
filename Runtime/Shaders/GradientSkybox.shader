@@ -21,6 +21,7 @@ Shader "Lunity/Gradient Skybox" {
 			#pragma fragment frag
 			#pragma shader_feature DITHER
 			#pragma fragmentoption ARB_precision_hint_fastest
+            #pragma multi_compile_instancing
 			#include "UnityCG.cginc"
 
 			fixed3 _ColorT;
@@ -38,15 +39,20 @@ Shader "Lunity/Gradient Skybox" {
 			struct appdata {
 				float4 vertex : POSITION;
 				float3 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
 			};
 
 			struct Varyings {
 				float4 vertex : SV_POSITION;
 				float3 texcoord : TEXCOORD0;
+                UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			Varyings vert(appdata v) {
 				Varyings o;
+				UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_OUTPUT(Varyings, o);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.texcoord = v.texcoord;
 				return o;
