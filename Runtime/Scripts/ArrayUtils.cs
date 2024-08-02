@@ -71,11 +71,13 @@ public static class ArrayUtils
 	}
 
 	/// Note - unlike JS, this doesn't mutate the original array, since that behaviour really annoys me :D
-	public static T[] Sort<T>(this T[] arr, IComparer<T> function)
+	public static T[] Sort<T>(this T[] arr, Func<T, T, int> function)
 	{
+		var comparer =  new Comparison<T>((a, b) => function(a, b));
+		
 		var output = new T[arr.Length];
 		Array.Copy(arr, 0, output, 0, arr.Length);
-		Array.Sort(output, function);
+		Array.Sort(output, comparer);
 		return output;
 	}
 
