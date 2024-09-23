@@ -23,7 +23,7 @@ namespace Lunity
 
         private bool _initialized;
 
-        public void Awake()
+        public void Start()
         {
             Initialize();
         }
@@ -57,7 +57,7 @@ namespace Lunity
                 enabled = false;
                 return;
             }
-            SetPanelImmediately(StartPanelIndex);
+            SetPanelImmediately(StartPanelIndex, true);
 
             _initialized = true;
         }
@@ -72,9 +72,9 @@ namespace Lunity
         }
 
         /// Sets the panel immediately, with no fading - and ensures that all panels have the correct state
-        public void SetPanelImmediately(int id)
+        public void SetPanelImmediately(int id, bool isInitializing = false)
         {
-            if (!_initialized) Initialize();
+            if (!_initialized && !isInitializing) Initialize();
             
             id = EnforceId(id);
 
@@ -141,7 +141,7 @@ namespace Lunity
             if (ControlGameObjectActivity) currentPanel.gameObject.SetActive(false);
 
             var targetPanel = _panels[TargetPanelIndex];
-            if (ControlGameObjectActivity) targetPanel.gameObject.SetActive(false);
+            if (ControlGameObjectActivity) targetPanel.gameObject.SetActive(true);
             for (var i = 0f; i < 1f; i += Time.deltaTime / FadeTime) {
                 targetPanel.alpha = i;
                 if (i > 0.5f) targetPanel.blocksRaycasts = true;
