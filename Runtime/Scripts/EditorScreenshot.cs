@@ -16,7 +16,7 @@ namespace Lunity
         {
             if (Input.GetKeyDown(ScreenshotKey)) {
                 var basePath = (StartFromDataPath ? Application.dataPath : "") + Directory;
-                ScreenCapture.CaptureScreenshot($"{basePath}/{DateTimeOffset.Now.ToUnixTimeMilliseconds()}.png", Supersize);
+                ScreenCapture.CaptureScreenshot($"{basePath}/{LTime.Now}.png", Supersize);
             }
         }
     }
