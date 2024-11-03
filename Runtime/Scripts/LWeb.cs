@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -13,8 +14,20 @@ namespace Lunity
         
         public static async Task<string> GetAsync(string uri, Action<string> onError = null)
         {
-            Debug.Log("Fetching at url " + uri);
+            Debug.Log("GET: " + uri);
             var response = await Client.GetAsync(uri);
+            try {
+                return await response.Content.ReadAsStringAsync();
+            } catch (HttpRequestException e) {
+                onError?.Invoke(e.Message);
+                return "";
+            }
+        }
+        
+        public static async Task<string> PostAsync(string uri, string body, Action<string> onError = null)
+        {
+            Debug.Log("POST: " + uri + "\n" + body);
+            var response = await Client.PostAsync(uri, new StringContent(body, Encoding.UTF8, "application/json"));
             try {
                 return await response.Content.ReadAsStringAsync();
             } catch (HttpRequestException e) {
@@ -26,6 +39,13 @@ namespace Lunity
         public static IEnumerator GetCoroutine(string uri, Action<string> onResponse, Action<string> onError = null)
         {
             var task = GetAsync(uri, onError);
+            yield return new WaitUntil(() => task.IsCompleted);
+            onResponse?.Invoke(task.Result);
+        }
+        
+        public static IEnumerator PostCoroutine(string uri, string body, Action<string> onResponse, Action<string> onError = null)
+        {
+            var task = PostAsync(uri, body, onError);
             yield return new WaitUntil(() => task.IsCompleted);
             onResponse?.Invoke(task.Result);
         }
