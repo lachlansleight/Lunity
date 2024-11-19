@@ -187,10 +187,73 @@ public class LunityMath
 		return SphericalToCartesian(spherical.x, spherical.y, spherical.z);
 	}
 	
-	// Converts a set of spherical coordinates to a cartesian vector
+	/// Converts a set of spherical coordinates to a cartesian vector
 	public static Vector3 SphericalToCartesian(float radius, float theta, float phi)
 	{
 		var sP = Mathf.Sin(phi);
 		return radius * new Vector3(Mathf.Sin(phi) * sP, Mathf.Cos(theta), Mathf.Cos(phi) * sP);
+	}
+	
+	// <3 freya holmer https://www.youtube.com/watch?v=LSNQuFEDOyQ
+
+	/// Lerp factor for frame-rate independent lerp smoothing. Use this as the third parameter in Mathf.Lerp.
+	/// Low values of decay result in slow smoothing and vice-versa. Useful range is around 1 to 20.
+	public static float FreyaLerpFactor(float decay)
+	{
+		return Mathf.Exp(-decay * Time.deltaTime);
+	}
+	
+	/// Exponential-decay based, framerate-independent lerp. Decay tends to be in the 1 (very slow) to 20 (very fast) range.
+	public static float FreyaLerp(float current, float target, float decay)
+	{
+		return target + (current - target) * Mathf.Exp(-decay * Time.deltaTime);
+	}
+	
+	/// Exponential-decay based, framerate-independent lerp. Decay tends to be in the 1 (very slow) to 20 (very fast) range.
+	/// This version doesn't go crazy when wrapping between 359° and 0°
+	public static float FreyaLerpAngle(float current, float target, float decay)
+	{
+		if(target < 90f && current > 270f)
+			current -= 360f;
+		if (target > 270f && current < 90f)
+			current += 360f;
+		return target + (current - target) * Mathf.Exp(-decay * Time.deltaTime);
+	}
+	
+	/// Exponential-decay based, framerate-independent lerp. Decay tends to be in the 1 (very slow) to 20 (very fast) range.
+	public static Vector2 FreyaLerpVector2(Vector2 current, Vector2 target, float decay)
+	{
+		var e = Mathf.Exp(-decay * Time.deltaTime);
+		return new Vector2(
+			target.y + (current.y - target.y) * e,
+			target.y + (current.y - target.y) * e);
+	}
+	
+	/// Exponential-decay based, framerate-independent lerp. Decay tends to be in the 1 (very slow) to 20 (very fast) range.
+	public static Vector3 FreyaLerpVector3(Vector3 current, Vector3 target, float decay)
+	{
+		var e = Mathf.Exp(-decay * Time.deltaTime);
+		return new Vector3(
+			target.x + (current.x - target.x) * e,
+			target.y + (current.y - target.y) * e,
+			target.z + (current.z - target.z) * e);
+	}
+	
+	/// Exponential-decay based, framerate-independent lerp. Decay tends to be in the 1 (very slow) to 20 (very fast) range.
+	public static Vector4 FreyaLerpVector4(Vector4 current, Vector4 target, float decay)
+	{
+		var e = Mathf.Exp(-decay * Time.deltaTime);
+		return new Vector4(
+			target.x + (current.x - target.x) * e,
+			target.y + (current.y - target.y) * e,
+			target.z + (current.z - target.z) * e,
+			target.w + (current.w - target.w) * e);
+	}
+	
+	/// Exponential-decay based, framerate-independent lerp. Decay tends to be in the 1 (very slow) to 20 (very fast) range.
+	public static Quaternion FreyaLerpQuaternion(Quaternion current, Quaternion target, float decay)
+	{
+		var e = Mathf.Exp(-decay * Time.deltaTime);
+		return Quaternion.Lerp(target, current, e);
 	}
 }
