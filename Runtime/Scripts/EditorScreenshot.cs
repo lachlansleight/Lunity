@@ -16,6 +16,9 @@ namespace Lunity
         {
             if (Input.GetKeyDown(ScreenshotKey)) {
                 var basePath = (StartFromDataPath ? Application.dataPath : "") + Directory;
+                if (!System.IO.Directory.Exists(basePath)) {
+                    System.IO.Directory.CreateDirectory(basePath);
+                }
                 ScreenCapture.CaptureScreenshot($"{basePath}/{LTime.Now}.png", Supersize);
             }
         }
