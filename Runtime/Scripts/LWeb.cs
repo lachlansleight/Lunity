@@ -14,7 +14,7 @@ namespace Lunity
         
         public static async Task<string> GetAsync(string uri, Action<string> onError = null)
         {
-            Debug.Log("GET: " + uri);
+            if(Application.isEditor) Debug.Log("GET: " + uri);
             var response = await Client.GetAsync(uri);
             try {
                 return await response.Content.ReadAsStringAsync();
@@ -26,7 +26,7 @@ namespace Lunity
         
         public static async Task<byte[]> GetBytesAsync(string uri, Action<string> onError = null)
         {
-            Debug.Log("GET: " + uri);
+            if(Application.isEditor) Debug.Log("GET: " + uri);
             var response = await Client.GetAsync(uri);
             try {
                 return await response.Content.ReadAsByteArrayAsync();
@@ -38,7 +38,7 @@ namespace Lunity
         
         public static async Task<string> PostAsync(string uri, string body, Action<string> onError = null)
         {
-            Debug.Log("POST: " + uri + "\n" + body);
+            if(Application.isEditor) Debug.Log("POST: " + uri + "\n" + body);
             var response = await Client.PostAsync(uri, new StringContent(body, Encoding.UTF8, "application/json"));
             try {
                 return await response.Content.ReadAsStringAsync();
